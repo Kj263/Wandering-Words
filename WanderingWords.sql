@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2024 at 03:03 PM
+-- Generation Time: Apr 28, 2024 at 04:07 PM
 -- Server version: 10.6.17-MariaDB-log
 -- PHP Version: 8.2.17
 
@@ -21,13 +21,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
---
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `Authors`
 --
+--
+-- Foreign and Primary keys for all tables described using alter table to introduce CASCADE statements
 
 CREATE OR REPLACE TABLE `Authors` (
   `authorID` int(11) NOT NULL,
@@ -43,7 +44,7 @@ INSERT INTO `Authors` (`authorID`, `authorFirstName`, `authorLastName`) VALUES
 (1, 'J.K.', 'Rowling'),
 (2, 'Jane', 'Austen'),
 (3, 'Conan', 'Doyle'),
-(4, 'Stephen ', 'King'),
+(4, 'Stephen', 'King'),
 (5, 'Peter', 'Straub');
 
 -- --------------------------------------------------------
@@ -55,19 +56,20 @@ INSERT INTO `Authors` (`authorID`, `authorFirstName`, `authorLastName`) VALUES
 CREATE OR REPLACE TABLE `Books` (
   `bookID` int(11) NOT NULL,
   `bookTitle` varchar(255) NOT NULL,
-  `genre` varchar(45) NOT NULL
+  `genre` varchar(45) NOT NULL,
+  `numCopies` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `Books`
 --
 
-INSERT INTO `Books` (`bookID`, `bookTitle`, `genre`) VALUES
-(1, 'Harry Potter and the Chamber of Secrets', 'fantasy'),
-(2, 'Harry Potter and the Prisoner of Azkaban', 'fantasy'),
-(3, 'Sherlock Holmes', 'mystery'),
-(4, 'Pride and Prejudice', 'historical fiction'),
-(5, 'The Talisman', 'fantasy');
+INSERT INTO `Books` (`bookID`, `bookTitle`, `genre`, `numCopies`) VALUES
+(1, 'Harry Potter and the Chamber of Secrets', 'fantasy', 5),
+(2, 'Harry Potter and the Prisoner of Azkaban', 'fantasy', 5),
+(3, 'Sherlock Holmes', 'mystery', 5),
+(4, 'Pride and Prejudice', 'mystery', 5),
+(5, 'The Talisman', 'fantasy', 5);
 
 -- --------------------------------------------------------
 
@@ -90,7 +92,8 @@ INSERT INTO `BooksAuthors` (`booksAuthorsID`, `Books_bookID`, `Authors_authorID`
 (2, 2, 1),
 (3, 3, 3),
 (4, 4, 2),
-(5, 5, 4);
+(5, 5, 4),
+(6, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -102,20 +105,19 @@ CREATE OR REPLACE TABLE `BooksCheckouts` (
   `booksCheckoutsID` int(11) NOT NULL,
   `Checkouts_checkoutID` int(11) NOT NULL,
   `Books_bookID` int(11) NOT NULL,
-  `dateCheckedOut` date DEFAULT NULL,
-  `dateDue` date DEFAULT NULL
+  `dateReturned` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `BooksCheckouts`
 --
 
-INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books_bookID`, `dateCheckedOut`, `dateDue`) VALUES
-(1, 1, 2, '2024-04-09', '2024-04-29'),
-(2, 2, 2, '2023-03-05', '2023-03-25'),
-(3, 4, 3, '2023-11-02', '2023-11-23'),
-(4, 4, 5, '2022-09-10', '2022-09-30'),
-(5, 3, 4, '2023-12-06', '2023-12-26');
+INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books_bookID`, `dateReturned`) VALUES
+(16, 1, 2, NULL),
+(17, 2, 2, '2023-03-20'),
+(18, 4, 3, '2022-05-22'),
+(19, 4, 5, '2022-05-10'),
+(20, 3, 4, '2023-11-20');
 
 -- --------------------------------------------------------
 
@@ -126,19 +128,21 @@ INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books
 CREATE OR REPLACE TABLE `Checkouts` (
   `checkoutID` int(11) NOT NULL,
   `Members_memberID` int(11) NOT NULL,
-  `Employees_employeeID` int(11) NOT NULL
+  `Employees_employeeID` int(11) NOT NULL,
+  `dateCheckedOut` date NOT NULL,
+  `dateDue` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `Checkouts`
 --
 
-INSERT INTO `Checkouts` (`checkoutID`, `Members_memberID`, `Employees_employeeID`) VALUES
-(1, 3, 1),
-(2, 3, 5),
-(3, 2, 4),
-(4, 1, 4),
-(5, 4, 2);
+INSERT INTO `Checkouts` (`checkoutID`, `Members_memberID`, `Employees_employeeID`, `dateCheckedOut`, `dateDue`) VALUES
+(1, 3, 1, '2024-04-09', '2024-04-29'),
+(2, 3, 5, '2023-03-05', '2023-03-25'),
+(3, 2, 4, '2023-11-02', '2023-11-23'),
+(4, 1, 4, '2022-05-05', '2022-05-25'),
+(5, 4, 2, '2023-12-06', '2023-12-26');
 
 -- --------------------------------------------------------
 
@@ -269,19 +273,19 @@ ALTER TABLE `Books`
 -- AUTO_INCREMENT for table `BooksAuthors`
 --
 ALTER TABLE `BooksAuthors`
-  MODIFY `booksAuthorsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `booksAuthorsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `BooksCheckouts`
 --
 ALTER TABLE `BooksCheckouts`
-  MODIFY `booksCheckoutsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `booksCheckoutsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `Checkouts`
 --
 ALTER TABLE `Checkouts`
-  MODIFY `checkoutID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `checkoutID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `Employees`
@@ -300,7 +304,6 @@ ALTER TABLE `Members`
 --
 
 --
--- Below are the Cascade Update and Delete Options for each Foreign Key
 -- Constraints for table `BooksAuthors`
 --
 ALTER TABLE `BooksAuthors`
@@ -320,6 +323,10 @@ ALTER TABLE `BooksCheckouts`
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Employees1` FOREIGN KEY (`Employees_employeeID`) REFERENCES `Employees` (`employeeID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_Checkouts_Members` FOREIGN KEY (`Members_memberID`) REFERENCES `Members` (`memberID`) ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
