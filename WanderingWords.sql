@@ -1,44 +1,26 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1-1.el7.remi
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Apr 28, 2024 at 04:07 PM
--- Server version: 10.6.17-MariaDB-log
--- PHP Version: 8.2.17
 
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Authors`
---
---
 -- Foreign and Primary keys for all tables described using alter table to introduce CASCADE statements
 
+-- -----------------------------------------------------
+-- Table `Authors`
+-- -----------------------------------------------------
+
+/* Represents the individual author for each book(s) */ 
+
 CREATE OR REPLACE TABLE `Authors` (
-  `authorID` int(11) NOT NULL,
+  `authorID` INT NOT NULL AUTO_INCREMENT,
   `authorFirstName` varchar(255) NOT NULL,
-  `authorLastName` varchar(255) NOT NULL
+  `authorLastName` varchar(255) NOT NULL,
+  PRIMARY KEY (`authorID`),
+  UNIQUE (`authorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `Authors`
---
+-- -----------------------------------------------------
+-- Insert `Authors`
+-- -----------------------------------------------------
 
 INSERT INTO `Authors` (`authorID`, `authorFirstName`, `authorLastName`) VALUES
 (1, 'J.K.', 'Rowling'),
@@ -47,22 +29,24 @@ INSERT INTO `Authors` (`authorID`, `authorFirstName`, `authorLastName`) VALUES
 (4, 'Stephen', 'King'),
 (5, 'Peter', 'Straub');
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `Books`
+-- ----------------------------------------------------- 
 
---
--- Table structure for table `Books`
---
+/* Represents a book title in the library */ 
 
 CREATE OR REPLACE TABLE `Books` (
-  `bookID` int(11) NOT NULL,
+  `bookID` INT NOT NULL AUTO_INCREMENT,
   `bookTitle` varchar(255) NOT NULL,
   `genre` varchar(45) NOT NULL,
-  `numCopies` int(11) NOT NULL
+  `numCopies` INT NOT NULL,
+  PRIMARY KEY (`bookID`),
+  UNIQUE (`bookID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `Books`
---
+-- -----------------------------------------------------
+-- Insert `Books`
+-- -----------------------------------------------------
 
 INSERT INTO `Books` (`bookID`, `bookTitle`, `genre`, `numCopies`) VALUES
 (1, 'Harry Potter and the Chamber of Secrets', 'fantasy', 5),
@@ -71,21 +55,91 @@ INSERT INTO `Books` (`bookID`, `bookTitle`, `genre`, `numCopies`) VALUES
 (4, 'Pride and Prejudice', 'mystery', 5),
 (5, 'The Talisman', 'fantasy', 5);
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `Employees`
+-- -----------------------------------------------------
 
---
--- Table structure for table `BooksAuthors`
---
+/* Records employee information including name, email and ID */ 
 
-CREATE OR REPLACE TABLE `BooksAuthors` (
-  `booksAuthorsID` int(11) NOT NULL,
-  `Books_bookID` int(11) NOT NULL,
-  `Authors_authorID` int(11) NOT NULL
+CREATE OR REPLACE TABLE `Employees` (
+  `employeeID` INT NOT NULL AUTO_INCREMENT,
+  `employeeFirstName` varchar(255) NOT NULL,
+  `employeeLastName` varchar(255) NOT NULL,
+  `employeeEmail` varchar(255) NOT NULL,
+  PRIMARY KEY (`employeeID`),
+  UNIQUE (`employeeID`),
+  UNIQUE (`employeeEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `BooksAuthors`
---
+-- -----------------------------------------------------
+-- Insert `Employees`
+-- -----------------------------------------------------
+
+INSERT INTO `Employees` (`employeeID`, `employeeFirstName`, `employeeLastName`, `employeeEmail`) VALUES
+(1, 'Haley', 'Smith', 'haleysmith@gmail.com'),
+(2, 'John', 'Martin', 'johnmartin@gmail.com'),
+(3, 'Sue', 'Sylvester', 'suesylvester@gmail.com'),
+(4, 'Brad', 'Pitt', 'bradpitt@gmail.com'),
+(5, 'Annie', 'Hall', 'anniehall@gmail.com');
+
+-- -----------------------------------------------------
+-- Table `Members`
+-- -----------------------------------------------------
+
+/* Records members of the library including name, email and ID */ 
+
+CREATE OR REPLACE TABLE `Members` (
+  `memberID` INT NOT NULL AUTO_INCREMENT,
+  `memberFirstName` varchar(255) NOT NULL,
+  `memberLastName` varchar(255) NOT NULL,
+  `memberEmail` varchar(255) NOT NULL,
+  PRIMARY KEY (`memberID`),
+  UNIQUE (`memberID`),
+  UNIQUE (`memberEmail`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- -----------------------------------------------------
+-- Insert `Members`
+-- -----------------------------------------------------
+
+INSERT INTO `Members` (`memberID`, `memberFirstName`, `memberLastName`, `memberEmail`) VALUES
+(1, 'Taylor', 'Swift', 'swiftie101@gmail.com'),
+(2, 'John', 'Cena', 'biker23@gmail.com'),
+(3, 'Eddie', 'Murphy', 'edmurphy@yahoo.com'),
+(4, 'Hannah', 'Montana', 'cowgirl3@yahoo.com'),
+(5, 'Miley', 'Cyrus', 'singsingsing@gmail.com');
+
+-- -----------------------------------------------------
+-- Table `BooksAuthors`
+-- -----------------------------------------------------
+
+/* Book details for authors and books */ 
+
+CREATE OR REPLACE TABLE `BooksAuthors` (
+  `booksAuthorsID` INT NOT NULL AUTO_INCREMENT,
+  `Books_bookID` INT,
+  `Authors_authorID` INT,
+  PRIMARY KEY (`booksAuthorsID`),
+  UNIQUE (`booksAuthorsID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+ALTER TABLE `BooksAuthors`
+  ADD CONSTRAINT `fk_Books_has_Authors_Authors1`
+    FOREIGN KEY (`Authors_authorID`)
+    REFERENCES `Authors` (`authorID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE `BooksAuthors`
+  ADD CONSTRAINT `fk_Books_has_Authors_Books1`
+    FOREIGN KEY  (`Books_bookID`)
+    REFERENCES `Books` (`BookID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+-- -----------------------------------------------------
+-- Insert `BooksAuthors`
+-- -----------------------------------------------------
 
 INSERT INTO `BooksAuthors` (`booksAuthorsID`, `Books_bookID`, `Authors_authorID`) VALUES
 (1, 1, 1),
@@ -95,47 +149,39 @@ INSERT INTO `BooksAuthors` (`booksAuthorsID`, `Books_bookID`, `Authors_authorID`
 (5, 5, 4),
 (6, 5, 5);
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `Checkouts`
+-- -----------------------------------------------------
 
---
--- Table structure for table `BooksCheckouts`
---
-
-CREATE OR REPLACE TABLE `BooksCheckouts` (
-  `booksCheckoutsID` int(11) NOT NULL,
-  `Checkouts_checkoutID` int(11) NOT NULL,
-  `Books_bookID` int(11) NOT NULL,
-  `dateReturned` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `BooksCheckouts`
---
-
-INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books_bookID`, `dateReturned`) VALUES
-(16, 1, 2, NULL),
-(17, 2, 2, '2023-03-20'),
-(18, 4, 3, '2022-05-22'),
-(19, 4, 5, '2022-05-10'),
-(20, 3, 4, '2023-11-20');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Checkouts`
---
+/* Information about the checkout of a book */ 
 
 CREATE OR REPLACE TABLE `Checkouts` (
-  `checkoutID` int(11) NOT NULL,
-  `Members_memberID` int(11) NOT NULL,
-  `Employees_employeeID` int(11) NOT NULL,
+  `checkoutID` INT NOT NULL AUTO_INCREMENT,
+  `Members_memberID` INT,
+  `Employees_employeeID` INT,
   `dateCheckedOut` date NOT NULL,
-  `dateDue` date NOT NULL
+  `dateDue` date NOT NULL,
+  PRIMARY KEY (`checkoutID`),
+  UNIQUE (`checkoutID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `Checkouts`
---
+ALTER TABLE `Checkouts`
+  ADD CONSTRAINT `fk_Checkouts_Employees1`
+    FOREIGN KEY (`Employees_employeeID`)
+    REFERENCES `Employees` (`employeeID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE `Checkouts`
+  ADD CONSTRAINT `fk_Checkouts_Members`
+    FOREIGN KEY (`Members_memberID`)
+    REFERENCES `Members` (`memberID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+    -- -----------------------------------------------------
+-- Insert `Checkouts`
+-- -----------------------------------------------------
 
 INSERT INTO `Checkouts` (`checkoutID`, `Members_memberID`, `Employees_employeeID`, `dateCheckedOut`, `dateDue`) VALUES
 (1, 3, 1, '2024-04-09', '2024-04-29'),
@@ -144,193 +190,46 @@ INSERT INTO `Checkouts` (`checkoutID`, `Members_memberID`, `Employees_employeeID
 (4, 1, 4, '2022-05-05', '2022-05-25'),
 (5, 4, 2, '2023-12-06', '2023-12-26');
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `BooksCheckouts`
+-- -----------------------------------------------------
 
---
--- Table structure for table `Employees`
---
+/* Checkout details for book and checkout */ 
 
-CREATE OR REPLACE TABLE `Employees` (
-  `employeeID` int(11) NOT NULL,
-  `employeeFirstName` varchar(255) NOT NULL,
-  `employeeLastName` varchar(255) NOT NULL,
-  `employeeEmail` varchar(255) NOT NULL
+CREATE OR REPLACE TABLE `BooksCheckouts` (
+  `booksCheckoutsID` INT NOT NULL AUTO_INCREMENT,
+  `Checkouts_checkoutID` INT,
+  `Books_bookID` INT,
+  `dateReturned` date DEFAULT NULL,
+  PRIMARY KEY  (`booksCheckoutsID`),
+  UNIQUE (`booksCheckoutsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `Employees`
---
-
-INSERT INTO `Employees` (`employeeID`, `employeeFirstName`, `employeeLastName`, `employeeEmail`) VALUES
-(1, 'Haley', 'Smith', 'haleysmith@gmail.com'),
-(2, 'John', 'Martin', 'johnmartin@gmail.com'),
-(3, 'Sue', 'Sylvester', 'suesylvester@gmail.com'),
-(4, 'Brad', 'Pitt', 'bradpitt@gmail.com'),
-(5, 'Annie', 'Hall', 'anniehall@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Members`
---
-
-CREATE OR REPLACE TABLE `Members` (
-  `memberID` int(11) NOT NULL,
-  `memberFirstName` varchar(255) NOT NULL,
-  `memberLastName` varchar(255) NOT NULL,
-  `memberEmail` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `Members`
---
-
-INSERT INTO `Members` (`memberID`, `memberFirstName`, `memberLastName`, `memberEmail`) VALUES
-(1, 'Taylor', 'Swift', 'swiftie101@gmail.com'),
-(2, 'John', 'Cena', 'biker23@gmail.com'),
-(3, 'Eddie', 'Murphy', 'edmurphy@yahoo.com'),
-(4, 'Hannah', 'Montana', 'cowgirl3@yahoo.com'),
-(5, 'Miley', 'Cyrus', 'singsingsing@gmail.com');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `Authors`
---
-ALTER TABLE `Authors`
-  ADD PRIMARY KEY (`authorID`),
-  ADD UNIQUE KEY `authorID_UNIQUE` (`authorID`);
-
---
--- Indexes for table `Books`
---
-ALTER TABLE `Books`
-  ADD PRIMARY KEY (`bookID`),
-  ADD UNIQUE KEY `bookID_UNIQUE` (`bookID`);
-
---
--- Indexes for table `BooksAuthors`
---
-ALTER TABLE `BooksAuthors`
-  ADD PRIMARY KEY (`booksAuthorsID`,`Books_bookID`,`Authors_authorID`),
-  ADD UNIQUE KEY `booksDetailsID_UNIQUE` (`booksAuthorsID`),
-  ADD KEY `fk_Books_has_Authors_Authors1_idx` (`Authors_authorID`),
-  ADD KEY `fk_Books_has_Authors_Books1_idx` (`Books_bookID`);
-
---
--- Indexes for table `BooksCheckouts`
---
 ALTER TABLE `BooksCheckouts`
-  ADD PRIMARY KEY (`booksCheckoutsID`,`Checkouts_checkoutID`,`Books_bookID`),
-  ADD UNIQUE KEY `checkoutDetailsID_UNIQUE` (`booksCheckoutsID`),
-  ADD KEY `fk_Checkouts_has_Books_Books1_idx` (`Books_bookID`),
-  ADD KEY `fk_Checkouts_has_Books_Checkouts1_idx` (`Checkouts_checkoutID`);
-
---
--- Indexes for table `Checkouts`
---
-ALTER TABLE `Checkouts`
-  ADD PRIMARY KEY (`checkoutID`,`Members_memberID`,`Employees_employeeID`),
-  ADD UNIQUE KEY `checkoutID_UNIQUE` (`checkoutID`),
-  ADD KEY `fk_Checkouts_Employees1_idx` (`Employees_employeeID`),
-  ADD KEY `fk_Checkouts_Members` (`Members_memberID`);
-
---
--- Indexes for table `Employees`
---
-ALTER TABLE `Employees`
-  ADD PRIMARY KEY (`employeeID`),
-  ADD UNIQUE KEY `employeeID_UNIQUE` (`employeeID`),
-  ADD UNIQUE KEY `employeeEmail_UNIQUE` (`employeeEmail`);
-
---
--- Indexes for table `Members`
---
-ALTER TABLE `Members`
-  ADD PRIMARY KEY (`memberID`),
-  ADD UNIQUE KEY `memberID_UNIQUE` (`memberID`),
-  ADD UNIQUE KEY `memberEmail_UNIQUE` (`memberEmail`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Authors`
---
-ALTER TABLE `Authors`
-  MODIFY `authorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `Books`
---
-ALTER TABLE `Books`
-  MODIFY `bookID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `BooksAuthors`
---
-ALTER TABLE `BooksAuthors`
-  MODIFY `booksAuthorsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `BooksCheckouts`
---
+  ADD CONSTRAINT `fk_Checkouts_has_Books_Books1`
+    FOREIGN KEY (`Books_bookID`)
+    REFERENCES `Books` (`bookID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+  
 ALTER TABLE `BooksCheckouts`
-  MODIFY `booksCheckoutsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  ADD CONSTRAINT `fk_Checkouts_has_Books_Checkouts1`
+    FOREIGN KEY  (`Checkouts_checkoutID`)
+    REFERENCES `Checkouts` (`checkoutID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
---
--- AUTO_INCREMENT for table `Checkouts`
---
-ALTER TABLE `Checkouts`
-  MODIFY `checkoutID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+-- -----------------------------------------------------
+-- Insert `BooksCheckouts`
+-- -----------------------------------------------------
 
---
--- AUTO_INCREMENT for table `Employees`
---
-ALTER TABLE `Employees`
-  MODIFY `employeeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `Members`
---
-ALTER TABLE `Members`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `BooksAuthors`
---
-ALTER TABLE `BooksAuthors`
-  ADD CONSTRAINT `fk_Books_has_Authors_Authors1` FOREIGN KEY (`Authors_authorID`) REFERENCES `Authors` (`authorID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Books_has_Authors_Books1` FOREIGN KEY (`Books_bookID`) REFERENCES `Books` (`bookID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `BooksCheckouts`
---
-ALTER TABLE `BooksCheckouts`
-  ADD CONSTRAINT `fk_Checkouts_has_Books_Books1` FOREIGN KEY (`Books_bookID`) REFERENCES `Books` (`bookID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Checkouts_has_Books_Checkouts1` FOREIGN KEY (`Checkouts_checkoutID`) REFERENCES `Checkouts` (`checkoutID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Checkouts`
---
-ALTER TABLE `Checkouts`
-  ADD CONSTRAINT `fk_Checkouts_Employees1` FOREIGN KEY (`Employees_employeeID`) REFERENCES `Employees` (`employeeID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Checkouts_Members` FOREIGN KEY (`Members_memberID`) REFERENCES `Members` (`memberID`) ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books_bookID`, `dateReturned`) VALUES
+(16, 1, 2, NULL),
+(17, 2, 2, '2023-03-20'),
+(18, 4, 3, '2022-05-22'),
+(19, 4, 5, '2022-05-10'),
+(20, 3, 4, '2023-11-20');
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
