@@ -1,0 +1,152 @@
+<html>
+<head>
+<title>Checkouts</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+
+<h1>Wandering Words: Checkout</h1>
+
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newCheckout() { showform('insert'); }
+    function updateCheckout(pid) { showform('update'); }
+    function deleteCheckout(pid) { showform ('delete'); }
+    function browseCheckout() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<nav id = "top-nav">
+    [ <a href="checkouts.html">Checkouts</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a>  | <a href="books.html">Books</a>  ]
+    </nav>    
+
+<body onload="browseCheckout()">
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newCheckout()">New</a></th>
+    <th></th>
+    <th>id</th>
+    <th>Member</th>
+    <th>Employee</th>
+    <th>Date Checked Out</th>
+    <th>Date Due</th>
+    <th>Date Returned</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCheckout('this.checkoutID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCheckout('this.checkoutID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td >William</td>
+    <td align="right" >Adama</td>
+    <td>12/05/2023</td>
+    <td>12/25/2023</td>
+    <td><em>NULL</em></td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCheckout('this.checkoutID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCheckout('this.checkoutID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td>Lee</td>
+    <td align="right" >Adama</td>
+    <td>12/05/2023</td>
+    <td>12/25/2023</td>
+    <td><em>NULL</em></td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCheckout('this.checkoutID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCheckout('this.checkoutID')">Delete</a></td>
+    <td align="right">3</td>
+    <td>Laura</td>
+    <td align="right" >Roslin</td>
+    <td>12/05/2023</td>
+    <td>12/25/2023</td>
+    <td><em>NULL</em></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addCheckout">
+        <legend><strong>Add Checkout</strong></legend>
+          <fieldset class="fields">
+            <label> Member </label> <select name="memberID"> </select>
+            <label> Employee </label> <select name="employeeID"> </select>
+            <label> Date Checked Out </label> <input type= "date" name="dateCheckedOut">
+            <label> Date Due </label> <input type= "date" name="dateCheckedOut">
+      </fieldset>
+          <input class="btn" type="submit" id="addCheckout" value="Add Checkout">
+          <input class="btn" type="button" value="cancel" onClick="browseCheckout()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateCheckout">
+        <legend><strong>Update Checkout</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="checkoutID" id="updatecheckoutID" value="1">
+          <label> ID: </label>
+            <label> Member </label> <select name="memberID"> </select>
+            <label> Employee </label> <select name="employeeID"> </select>
+            <label> Date Checked Out </label> <input type= "date" name="dateCheckedOut">
+            <label> Date Due </label> <input type= "date" name="dateCheckedOut">
+            <label> Date Returned </label> <input type= "date" name="dateReturned">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveCheckout" value="Save Update Checkout">
+          <input class="btn" type="button" value="cancel" onClick="browseCheckout()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteCheckout">
+      <legend><strong>Delete Checkout</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="checkoutID" id="deletecheckoutID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> William Adama
+            
+    </fieldset>
+        <input class="btn" type="submit" id="DeleteCheckout" value="Delete Checkout">
+        <input class="btn" type="button" value="cancel" onClick="browseCheckout()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
