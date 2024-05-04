@@ -18,7 +18,7 @@ VALUES (:memberFirstNameInput, :memberLastNameInput, :memberEmailInput)
 SELECT bookID, bookTitle, genre, numCopies 
 FROM Books
 
--- display all books with their author 
+-- display all books with their author (needed or no?)
 SELECT Books.bookID, bookTitle, genre, numCopies, authorLastName AS author
 FROM Books
 INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
@@ -28,7 +28,7 @@ INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
 INSERT INTO Books (bookTitle, genre, numCopies) 
 VALUES (:bookTitleInput, :genreInput, :numCopiesInput)
 
--- give a book an author/authors (M:M relationship)
+-- give a book an author/authors (M:M relationship) (needed or no?)
 INSERT INTO BooksAuthors (bookID, authorID)
 VALUES (:bookIDInput, :authorIDInput)
 
