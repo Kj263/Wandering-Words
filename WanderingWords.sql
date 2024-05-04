@@ -2,8 +2,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
--- Foreign and Primary keys for all tables described using alter table to introduce CASCADE statements
-
 -- -----------------------------------------------------
 -- Table `Authors`
 -- -----------------------------------------------------
@@ -117,22 +115,22 @@ INSERT INTO `Members` (`memberID`, `memberFirstName`, `memberLastName`, `memberE
 
 CREATE OR REPLACE TABLE `BooksAuthors` (
   `booksAuthorsID` INT NOT NULL AUTO_INCREMENT,
-  `Books_bookID` INT,
-  `Authors_authorID` INT,
+  `bookID` INT,
+  `authorID` INT,
   PRIMARY KEY (`booksAuthorsID`),
   UNIQUE (`booksAuthorsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 ALTER TABLE `BooksAuthors`
   ADD CONSTRAINT `fk_Books_has_Authors_Authors1`
-    FOREIGN KEY (`Authors_authorID`)
+    FOREIGN KEY (`authorID`)
     REFERENCES `Authors` (`authorID`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE;
 
 ALTER TABLE `BooksAuthors`
   ADD CONSTRAINT `fk_Books_has_Authors_Books1`
-    FOREIGN KEY  (`Books_bookID`)
+    FOREIGN KEY  (`bookID`)
     REFERENCES `Books` (`BookID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
@@ -141,7 +139,7 @@ ALTER TABLE `BooksAuthors`
 -- Insert `BooksAuthors`
 -- -----------------------------------------------------
 
-INSERT INTO `BooksAuthors` (`booksAuthorsID`, `Books_bookID`, `Authors_authorID`) VALUES
+INSERT INTO `BooksAuthors` (`booksAuthorsID`, `bookID`, `authorID`) VALUES
 (1, 1, 1),
 (2, 2, 1),
 (3, 3, 3),
@@ -157,8 +155,8 @@ INSERT INTO `BooksAuthors` (`booksAuthorsID`, `Books_bookID`, `Authors_authorID`
 
 CREATE OR REPLACE TABLE `Checkouts` (
   `checkoutID` INT NOT NULL AUTO_INCREMENT,
-  `Members_memberID` INT,
-  `Employees_employeeID` INT,
+  `memberID` INT,
+  `employeeID` INT,
   `dateCheckedOut` date NOT NULL,
   `dateDue` date NOT NULL,
   PRIMARY KEY (`checkoutID`),
@@ -167,14 +165,14 @@ CREATE OR REPLACE TABLE `Checkouts` (
 
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Employees1`
-    FOREIGN KEY (`Employees_employeeID`)
+    FOREIGN KEY (`employeeID`)
     REFERENCES `Employees` (`employeeID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Members`
-    FOREIGN KEY (`Members_memberID`)
+    FOREIGN KEY (`memberID`)
     REFERENCES `Members` (`memberID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
@@ -183,7 +181,7 @@ ALTER TABLE `Checkouts`
 -- Insert `Checkouts`
 -- -----------------------------------------------------
 
-INSERT INTO `Checkouts` (`checkoutID`, `Members_memberID`, `Employees_employeeID`, `dateCheckedOut`, `dateDue`) VALUES
+INSERT INTO `Checkouts` (`checkoutID`, `memberID`, `employeeID`, `dateCheckedOut`, `dateDue`) VALUES
 (1, 3, 1, '2024-04-09', '2024-04-29'),
 (2, 3, 5, '2023-03-05', '2023-03-25'),
 (3, 2, 4, '2023-11-02', '2023-11-23'),
@@ -198,8 +196,8 @@ INSERT INTO `Checkouts` (`checkoutID`, `Members_memberID`, `Employees_employeeID
 
 CREATE OR REPLACE TABLE `BooksCheckouts` (
   `booksCheckoutsID` INT NOT NULL AUTO_INCREMENT,
-  `Checkouts_checkoutID` INT,
-  `Books_bookID` INT,
+  `checkoutID` INT,
+  `bookID` INT,
   `dateReturned` date DEFAULT NULL,
   PRIMARY KEY  (`booksCheckoutsID`),
   UNIQUE (`booksCheckoutsID`)
@@ -207,14 +205,14 @@ CREATE OR REPLACE TABLE `BooksCheckouts` (
 
 ALTER TABLE `BooksCheckouts`
   ADD CONSTRAINT `fk_Checkouts_has_Books_Books1`
-    FOREIGN KEY (`Books_bookID`)
+    FOREIGN KEY (`bookID`)
     REFERENCES `Books` (`bookID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
   
 ALTER TABLE `BooksCheckouts`
   ADD CONSTRAINT `fk_Checkouts_has_Books_Checkouts1`
-    FOREIGN KEY  (`Checkouts_checkoutID`)
+    FOREIGN KEY  (`checkoutID`)
     REFERENCES `Checkouts` (`checkoutID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
@@ -223,7 +221,7 @@ ALTER TABLE `BooksCheckouts`
 -- Insert `BooksCheckouts`
 -- -----------------------------------------------------
 
-INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books_bookID`, `dateReturned`) VALUES
+INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `checkoutID`, `bookID`, `dateReturned`) VALUES
 (16, 1, 2, NULL),
 (17, 2, 2, '2023-03-20'),
 (18, 4, 3, '2022-05-22'),
@@ -232,4 +230,5 @@ INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `Checkouts_checkoutID`, `Books
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
+
 
