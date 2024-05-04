@@ -19,17 +19,17 @@ SELECT bookID, bookTitle, genre, numCopies
 FROM Books
 
 -- display all books with their author 
-SELECT books_bookID, bookTitle, genre, numCopies, authorLastName AS author
+SELECT Books.bookID, bookTitle, genre, numCopies, authorLastName AS author
 FROM Books
-INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.Books_bookID
-INNER JOIN Authors on Authors.authorID = BooksAuthors.Authors_authorID
+INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
+INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
 
 -- add a new book 
 INSERT INTO Books (bookTitle, genre, numCopies) 
 VALUES (:bookTitleInput, :genreInput, :numCopiesInput)
 
 -- give a book an author/authors (M:M relationship)
-INSERT INTO BooksAuthors (Books_bookID, Authors_authorID)
+INSERT INTO BooksAuthors (bookID, authorID)
 VALUES (:bookIDInput, :authorIDInput)
 
 --------------------------------------------------------------------------
@@ -42,10 +42,10 @@ SELECT authorID, authorFirstName, authorLastName
 FROM Authors
 
 -- display all authors with their respective books
-SELECT Authors_authorID, authorFirstName, authorLastName, bookTitle
+SELECT Authors.authorID, authorFirstName, authorLastName, bookTitle
 FROM Authors
-INNER JOIN BooksAuthors ON Authors.authorID = BooksAuthors.Authors_authorID
-INNER JOIN Books on Books.bookID = BooksAuthors.Books_bookID
+INNER JOIN BooksAuthors ON Authors.authorID = BooksAuthors.authorID
+INNER JOIN Books on Books.bookID = BooksAuthors.bookID
 
 -- add a new author
 INSERT INTO Authors (authorFirstName, authorLastName)
@@ -66,15 +66,15 @@ SELECT employeeID, employeeLastName FROM Employees
 SELECT checkoutID, dateCheckedOut, dateDue, 
 Members.memberLastName AS memberLastName, Employees.employeeLastName AS employeeLastName
 FROM Checkouts
-INNER JOIN Members ON Checkouts.Members_memberID = Members.memberID
-INNER JOIN Employees ON Checkouts.Employees_employeeID = Employees.employeeID
+INNER JOIN Members ON Checkouts.memberID = Members.memberID
+INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID
 
 
 -- display all checkouts with their respective books and the date returned
-SELECT checkoutID, bookTitle, dateReturned
+SELECT Checkouts.checkoutID, bookTitle, dateReturned
 FROM Checkouts
-INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.Checkouts_checkoutID
-INNER JOIN Books on Books.bookID = BooksCheckouts.Books_bookID
+INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID
+INNER JOIN Books on Books.bookID = BooksCheckouts.bookID
 ORDER BY checkoutID
 
 -- add a new checkout
@@ -82,19 +82,19 @@ INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue)
 VALUES (:memberID_from_dropdown_Input, :employeeID_from_dropdown_input, :dateCheckedOutInput, :dateDueInput)
 
 -- add books to a checkout (adding to a M:M relationship)
-INSERT INTO BooksCheckouts (Books_bookID, Checkouts_checkoutID, dateReturned)
+INSERT INTO BooksCheckouts (bookID, checkoutID, dateReturned)
 VALUES (:bookIDInput, :checkoutIDInput, :dateReturnedInput)
 
 -- update the dateReturned in BooksCheckouts (updating a M:M relationship)
 UPDATE BooksCheckouts
 SET dateReturned = :dateReturnedInput
-WHERE Books_bookID = :bookID_from_update_form
+WHERE BooksCheckouts.bookID = :bookID_from_update_form
 
 -- delete a checkout
 DELETE FROM Checkouts WHERE checkoutID = :checkoutIDInput
 
 -- dis-associate books from a checkout (deleting a M:M relationship) (is this needed or does cascade take care of this??)
-DELETE FROM BooksCheckouts WHERE Checkouts_checkoutID = :checkoutIDInput AND Books_bookID = :bookIDInput
+DELETE FROM BooksCheckouts WHERE checkoutID = :checkoutIDInput AND bookID = :bookIDInput
 
 -- update a checkout
 UPDATE Checkouts 
