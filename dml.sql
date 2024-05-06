@@ -11,6 +11,9 @@ SELECT employeeID, employeeLastName FROM Employees
 -- get all bookID's and bookTitle's for Book dropdown
 SELECT bookID, bookTitle, FROM Books
 
+-- get all checkoutID's for CheckoutID dropdown
+SELECT checkoutID FROM Checkouts
+
 -- display all checkouts
 SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee,
 dateCheckedOut, dateDue
