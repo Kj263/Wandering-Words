@@ -155,7 +155,7 @@ INSERT INTO `BooksAuthors` (`booksAuthorsID`, `bookID`, `authorID`) VALUES
 
 CREATE OR REPLACE TABLE `Checkouts` (
   `checkoutID` INT NOT NULL AUTO_INCREMENT,
-  `memberID` INT,
+  `memberID` INT NOT NULL,
   `employeeID` INT,
   `dateCheckedOut` date NOT NULL,
   `dateDue` date NOT NULL,
@@ -196,7 +196,7 @@ INSERT INTO `Checkouts` (`checkoutID`, `memberID`, `employeeID`, `dateCheckedOut
 
 CREATE OR REPLACE TABLE `BooksCheckouts` (
   `booksCheckoutsID` INT NOT NULL AUTO_INCREMENT,
-  `checkoutID` INT,
+  `checkoutID` INT NOT NULL,
   `bookID` INT,
   `dateReturned` date DEFAULT NULL,
   PRIMARY KEY  (`booksCheckoutsID`),
