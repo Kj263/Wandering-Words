@@ -28,9 +28,9 @@ INNER JOIN Books on Books.bookID = BooksCheckouts.bookID
 INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) 
 VALUES (:memberID_from_dropdown_input, :employeeID_from_dropdown_input, :dateCheckedOutInput, :dateDueInput)
 
--- add a book to a checkout (adding to a M:M relationship)*****
-INSERT INTO BooksCheckouts (bookID, checkoutID)
-VALUES (:bookID_from_dropdown_input, :checkoutID_from_dropdown_input)
+-- add a book to a checkout (adding to a M:M relationship)
+INSERT INTO BooksCheckouts (bookID, checkoutID, dateCheckedOut, dateDue)
+VALUES (:bookID_from_dropdown_input, :checkoutID_from_dropdown_input, :dateCheckedOutInput, :dateDueInput)
 
 -- update a checkout
 UPDATE Checkouts 
