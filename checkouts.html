@@ -1,8 +1,6 @@
 <!--
-    
-Sampled after code given on Project Step 3 Draft Version
 
-# Citation for the following modified function:
+# Citation for the following adapted code:
 # Date 05/04/2024
 # Source URL: https://canvas.oregonstate.edu/courses/1958399/assignments/9589658
 
@@ -193,7 +191,7 @@ Sampled after code given on Project Step 3 Draft Version
   <form method="POST" id="addBookCheckout">
       <legend><strong>Add Book to Checkout</strong></legend>
         <fieldset class="fields">
-          <label> ID: </label>
+          <label> ID: </label> <select name="checkoutID"> </select>
           <label> Book </label> <select name="bookID"> </select>
           <label> Date Checked Out </label> <input type= "date" name="dateCheckedOut">
           <label> Date Due </label> <input type= "date" name="dateCheckedOut">
@@ -224,9 +222,9 @@ Sampled after code given on Project Step 3 Draft Version
         <legend><strong>Update Book in Checkout</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="checkoutID" id="updatecheckoutID" value="1">
-            <label> ID: </label>
-            <label> Book </label> <select name="bookID"> </select>
-            <label> Date Returned </label> <input type= "date" name="dateReturned">
+            <label> ID: </label> 2
+            <label> Book: </label> Pride and Prejudice
+            <label> Date Returned: </label> <input type= "date" name="dateReturned">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveBookCheckout" value="Save Book Update">
           <input class="btn" type="button" value="Cancel" onClick="browseCheckout()">
