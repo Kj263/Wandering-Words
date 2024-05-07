@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Members</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newMember() { showform('insert'); }
+    function browseMember() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseMember()">
+<h1>Members</h1>
+
+<nav id = "top nav">
+[ <a href="checkouts.html">Checkouts</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a>  | <a href="books.html">Books</a>  ]
+</nav>
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newMember()">New</a></th>
+    <th>id</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right" >1</td>
+    <td >William</td>
+    <td align="right" >Adama</td>
+    <td align="right">adama@gmail.com</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right" >2</td>
+    <td>Lee</td>
+    <td align="right" >Adama</td>
+    <td align="right">adama@gmail.com</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right">3</td>
+    <td>Laura</td>
+    <td align="right" >Roslin</td>
+    <td align="right">adama@gmail.com</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addMember">
+        <legend><strong>Add Member</strong></legend>
+          <fieldset class="fields">
+            <label> Member First Name </label> <input type= "text" name="memberFirstName">
+            <label> Member Last Name </label> <input type= "text" name="memberLastName">
+            <label> Member Email </label> <input type= "text" name="memberEmail">
+      </fieldset>
+          <input class="btn" type="submit" id="addMember" value="Add Member">
+          <input class="btn" type="button" value="cancel" onClick="browseMember()">
+	</form> 
+</div><!-- insert -->
+
+</body>
+</html>
