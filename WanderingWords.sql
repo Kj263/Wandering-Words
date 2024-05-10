@@ -115,8 +115,8 @@ INSERT INTO `Members` (`memberID`, `memberFirstName`, `memberLastName`, `memberE
 
 CREATE OR REPLACE TABLE `BooksAuthors` (
   `booksAuthorsID` INT NOT NULL AUTO_INCREMENT,
-  `bookID` INT,
-  `authorID` INT,
+  `bookID` INT NOT NULL,
+  `authorID` INT NOT NULL,
   PRIMARY KEY (`booksAuthorsID`),
   UNIQUE (`booksAuthorsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -197,7 +197,7 @@ INSERT INTO `Checkouts` (`checkoutID`, `memberID`, `employeeID`, `dateCheckedOut
 CREATE OR REPLACE TABLE `BooksCheckouts` (
   `booksCheckoutsID` INT NOT NULL AUTO_INCREMENT,
   `checkoutID` INT NOT NULL,
-  `bookID` INT,
+  `bookID` INT NOT NULL,
   `dateReturned` date DEFAULT NULL,
   PRIMARY KEY  (`booksCheckoutsID`),
   UNIQUE (`booksCheckoutsID`)
