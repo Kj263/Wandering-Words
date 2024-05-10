@@ -36,16 +36,16 @@
 <body onload="browseBook()">
 <h1>Books</h1>
 
-<nav id = "top nav">
-[ <a href="checkouts.html">Checkouts</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a>  | <a href="books.html">Books</a>  ]
-</nav>
+<nav id = "top-nav">
+    [ <a href="index.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> ]
+    </nav>    
 
 <div id="browse">
 <p><a href="#" onClick="showAll()">Display all forms</a> </p>
 <table border="1" cellpadding="5">
   <tr>
     <th><a href="#" onClick="newBook()">New</a></th>
-    <th>id</th>
+    <th>Book ID</th>
     <th>Book Title</th>
     <th>Author</th>
     <th>Genre</th>
@@ -83,11 +83,12 @@
         <legend><strong>Add Book</strong></legend>
           <fieldset class="fields">
             <label> Book Title </label> <input type= "text" name="bookTitle">
+            <label> Author </label> <select name="authorID"> </select>
             <label> Genre </label> <input type= "text" name="genre">
             <label> Number of Copies at Library </label> <input type= "text" name="numCopies">
       </fieldset>
           <input class="btn" type="submit" id="addBook" value="Add Book">
-          <input class="btn" type="button" value="cancel" onClick="browseBook()">
+          <input class="btn" type="button" value="Cancel" onClick="browseBook()">
 	</form> 
 </div><!-- insert -->
 
