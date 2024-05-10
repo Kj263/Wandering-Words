@@ -90,27 +90,21 @@ VALUES (:employeeFirstNameInput, :employeeLastNameInput, :employeeEmailInput)
 
 --------------------------------------------------------------------------
 -- BOOKS PAGE
--- get all bookID's and bookTitle's for Book dropdown
-SELECT bookID, bookTitle, FROM Books
 
 -- get all authorID's and authorLastName's for Author dropdown
 SELECT authorID, authorLastName, FROM Authors
 
--- display all books
-SELECT bookID, bookTitle, genre, numCopies 
+-- display all books with their author 
+SELECT Books.bookID, bookTitle, CONCAT(Authors.authorFirstName,' ',Authors.authorLastName) AS author, genre, numCopies
 FROM Books
+INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
+INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
 
 -- add a new book 
 INSERT INTO Books (bookTitle, genre, numCopies) 
 VALUES (:bookTitleInput, :genreInput, :numCopiesInput)
 
--- display all books with their author 
-SELECT Books.bookID, bookTitle, CONCAT(Authors.authorFirstName,' ',Authors.authorLastName) AS author
-FROM Books
-INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
-INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
-
--- give a book an author/authors (M:M relationship)
+-- give a book an author (M:M relationship)
 INSERT INTO BooksAuthors (bookID, authorID)
-VALUES (:bookID_from_dropdown_input, :authorID_from_dropdown_input)
+VALUES (:bookID_from_table, :authorID_from_dropdown_input)
 
