@@ -94,7 +94,7 @@
 </head>
 
 <nav id = "top-nav">
-    [ <a href="checkouts.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> ]
+    [ <a href="index.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> ]
     </nav>    
 
 <body onload="browseCheckout()">
@@ -106,7 +106,7 @@
   <tr>
     <th><a href="#" onClick="newCheckout()">New</a></th>
     <th></th>
-    <th>id</th>
+    <th>Checkout ID</th>
     <th>Member</th>
     <th>Employee</th>
     <th>Date Checked Out</th>
@@ -147,7 +147,7 @@
     <h3>Checked Out Books</h3>
     <tr>
       <th><a href="#" onClick="newBookCheckout()">New</a></th>
-      <th>id</th>
+      <th>Checkout ID</th>
       <th>Book Title</th>
       <th>Date Returned</th>
     </tr>
@@ -193,6 +193,7 @@
         <fieldset class="fields">
           <label> ID: </label> <select name="checkoutID"> </select>
           <label> Book </label> <select name="bookID"> </select>
+          <label> Author </label> <select name="authorID"> </select>
           <label> Date Checked Out </label> <input type= "date" name="dateCheckedOut">
           <label> Date Due </label> <input type= "date" name="dateCheckedOut">
     </fieldset>
