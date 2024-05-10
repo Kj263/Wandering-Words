@@ -106,5 +106,5 @@ VALUES (:bookTitleInput, :genreInput, :numCopiesInput)
 
 -- give a book an author (M:M relationship)
 INSERT INTO BooksAuthors (bookID, authorID)
-VALUES (:bookID_from_table, :authorID_from_dropdown_input)
+VALUES (:bookID_from_form, :authorID_from_dropdown_input)
 
