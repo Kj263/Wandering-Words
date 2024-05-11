@@ -1,3 +1,11 @@
+// Citation for the following file:
+// Date: 05/11/2024
+// Copied from nodejs-starter-app
+// Specifically copied steps 0, 1, and 2
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+
+
 // App.js
 
 /*
