@@ -1,6 +1,6 @@
 -- the ":" denotes a variable being received from the backend
 
--- CHECKOUTS PAGE/CHECKED-OUT BOOKS PAGE
+-- CHECKOUTS PAGE
 
 -- get all memberID's and memberLastName's for Member dropdown
 SELECT memberID, memberLastName FROM Members
@@ -21,19 +21,9 @@ FROM Checkouts
 INNER JOIN Members ON Checkouts.memberID = Members.memberID
 INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID
 
--- display all checkouts with their respective books and dateReturned
-SELECT Checkouts.checkoutID, bookTitle, dateReturned
-FROM Checkouts
-INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID
-INNER JOIN Books on Books.bookID = BooksCheckouts.bookID
-
 -- add a new checkout
 INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) 
 VALUES (:memberID_from_dropdown_input, :employeeID_from_dropdown_input, :dateCheckedOutInput, :dateDueInput)
-
--- add a book to a checkout (adding to a M:M relationship)
-INSERT INTO BooksCheckouts (bookID, checkoutID, dateCheckedOut, dateDue)
-VALUES (:bookID_from_dropdown_input, :checkoutID_from_dropdown_input, :dateCheckedOutInput, :dateDueInput)
 
 -- update a checkout
 UPDATE Checkouts 
@@ -41,13 +31,38 @@ SET memberID = :memberID_from_dropdown_input, employeeID = :employeeID_from_drop
 dateCheckedOut = :dateCheckedOutInput, dateDue = :dateDueInput
 WHERE checkoutID = :checkoutID_from_update_form
 
+-- delete a checkout
+DELETE FROM Checkouts WHERE checkoutID = :checkoutIDInput
+
+
+
+
+--------------------------------------------------------------------------
+--BOOKSCHECKOUTS PAGE
+
+-- get all bookID's and bookTitle's for Book dropdown
+SELECT bookID, bookTitle, FROM Books
+
+-- get all checkoutID's for CheckoutID dropdown
+SELECT checkoutID FROM Checkouts
+
+-- display all checkouts with their respective books and dateReturned
+SELECT Checkouts.checkoutID, bookTitle, dateReturned
+FROM Checkouts
+INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID
+INNER JOIN Books on Books.bookID = BooksCheckouts.bookID
+
+-- add a book to a checkout (adding to a M:M relationship)
+INSERT INTO BooksCheckouts (bookID, checkoutID, dateCheckedOut, dateDue)
+VALUES (:bookID_from_dropdown_input, :checkoutID_from_dropdown_input, :dateCheckedOutInput, :dateDueInput)
+
 -- update the dateReturned in BooksCheckouts (updating a M:M relationship)
 UPDATE BooksCheckouts
 SET dateReturned = :dateReturnedInput
 WHERE BooksCheckouts.bookID = :bookID_from_update_form
 
--- delete a checkout
-DELETE FROM Checkouts WHERE checkoutID = :checkoutIDInput
+
+
 
 
 
@@ -104,7 +119,20 @@ INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
 INSERT INTO Books (bookTitle, genre, numCopies) 
 VALUES (:bookTitleInput, :genreInput, :numCopiesInput)
 
+
+
+
+
+
+--------------------------------------------------------------------------
+-- BOOKSAUTHORS PAGE
+
+-- display all book and author ids (M:M)
+SELECT Books.bookID, Authors.authorID
+FROM Books
+INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
+INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
+
 -- give a book an author (M:M relationship)
 INSERT INTO BooksAuthors (bookID, authorID)
 VALUES (:bookID_from_form, :authorID_from_dropdown_input)
-
