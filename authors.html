@@ -36,16 +36,18 @@
 <body onload="browseAuthor()">
 <h1>Authors</h1>
 
-<nav id = "top nav">
-[ <a href="checkouts.html">Checkouts</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a>  | <a href="books.html">Books</a>  ]
-</nav>
+<nav id = "top-nav">
+  [ <a href="index.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> 
+  | <a href="booksAuthors.html">Books with Authors</a>  | <a href="booksCheckouts.html">Books in Checkouts</a>]
+  </nav> 
+
 
 <div id="browse">
 <p><a href="#" onClick="showAll()">Display all forms</a> </p>
 <table border="1" cellpadding="5">
   <tr>
     <th><a href="#" onClick="newAuthor()">New</a></th>
-    <th>id</th>
+    <th>Author ID</th>
     <th>First Name</th>
     <th>Last Name</th>
   </tr>
@@ -78,7 +80,7 @@
             <label> Author Last Name </label> <input type= "text" name="authorLastName">
       </fieldset>
           <input class="btn" type="submit" id="addAuthor" value="Add Author">
-          <input class="btn" type="button" value="cancel" onClick="browseAuthor()">
+          <input class="btn" type="button" value="Cancel" onClick="browseAuthor()">
 	</form> 
 </div><!-- insert -->
 

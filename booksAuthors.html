@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Members</title>
+<title>Books with Authors</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript">
 		function showform(dowhat) {
@@ -27,64 +27,60 @@
 				document.getElementById('delete').style.display = 'none';
 			}
 		}
-    function newEmployee() { showform('insert'); }
-    function browseEmployee() { showform ('browse'); }
+    function newBookAuthor() { showform('insert'); }
+    function browseBookAuthor() { showform ('browse'); }
     function showAll() { showform ('all'); }
 </script>
 </head>
 
-<body onload="browseEmployee()">
-<h1>Employees</h1>
+<body onload="browseBookAuthor()">
+<h1>Books with Authors</h1>
 
 <nav id = "top-nav">
-  [ <a href="index.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> 
-  | <a href="booksAuthors.html">Books with Authors</a>  | <a href="booksCheckouts.html">Books in Checkouts</a>]
-  </nav> 
+    [ <a href="index.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> 
+    | <a href="booksAuthors.html">Books with Authors</a>  | <a href="booksCheckouts.html">Books in Checkouts</a>]
+    </nav> 
 
 <div id="browse">
 <p><a href="#" onClick="showAll()">Display all forms</a> </p>
 <table border="1" cellpadding="5">
   <tr>
-    <th><a href="#" onClick="newEmployee()">New</a></th>
-    <th>Employee ID</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Email</th>
+    <th><a href="#" onClick="newBookAuthor()">New</a></th>
+    <th>Books with Authors ID</th>
+    <th>Book ID</th>
+    <th>Author ID</th>
   </tr>
   <tr>
     <td></td>
-    <td align="right" >1</td>
-    <td >William</td>
-    <td align="right" >Adama</td>
-    <td align="right">adama@gmail.com</td>
+    <td>1</td>
+    <td >2</td>
+    <td align="right" >3</td>
   </tr>
   <tr>
     <td></td>
+    <td>2</td>
+    <td>4</td>
     <td align="right" >2</td>
-    <td>Lee</td>
-    <td align="right" >Adama</td>
-    <td align="right">adama@gmail.com</td>
   </tr>
   <tr>
     <td></td>
-    <td align="right">3</td>
-    <td>Laura</td>
-    <td align="right" >Roslin</td>
-    <td align="right">adama@gmail.com</td>
+    <td>3</td>
+    <td>6</td>
+    <td align="right" >2</td>
   </tr>
 </table>
 <p>&nbsp;</p>
 </div> <!-- browse -->
 <div id="insert">
-    <form method="POST" id="addEmployee">
-        <legend><strong>Add Employee</strong></legend>
+    <form method="POST" id="addBookAuthor">
+        <legend><strong>Add Book Author</strong></legend>
           <fieldset class="fields">
-            <label> Employee First Name </label> <input type= "text" name="employeeFirstName">
-            <label> Employee Last Name </label> <input type= "text" name="employeeLastName">
-            <label> Employee Email </label> <input type= "text" name="employeeEmail">
+            <label> Books with Authors ID: </label> 4
+            <label> Book ID </label> <select name="bookID"> </select>
+            <label> Author Name </label> <select name="authorID"> </select>
       </fieldset>
-          <input class="btn" type="submit" id="addEmployee" value="Add Employee">
-          <input class="btn" type="button" value="Cancel" onClick="browseEmployee()">
+          <input class="btn" type="submit" id="addBookAuthor" value="Add Author to Book">
+          <input class="btn" type="button" value="Cancel" onClick="browseBookAuthor()">
 	</form> 
 </div><!-- insert -->
 

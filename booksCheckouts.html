@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>Books in Checkouts</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('updateBookCheckout').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('updateBookCheckout').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'updateBookCheckout'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+        document.getElementById('updateBookCheckout').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('updateBookCheckout').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newBookCheckout() { showform('insert'); }
+    function updateBookCheckout() { showform ('updateBookCheckout'); }
+    function browseBookCheckout() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseBookCheckout()">
+<h1>Books in Checkouts</h1>
+
+<nav id = "top-nav">
+    [ <a href="index.html">Checkouts</a> | <a href="books.html">Books</a> | <a href="authors.html">Authors</a> | <a href="members.html">Members</a> | <a href="employees.html">Employees</a> 
+    | <a href="booksAuthors.html">Books with Authors</a>  | <a href="booksCheckouts.html">Books in Checkouts</a>]
+    </nav> 
+
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newBookCheckout()">New</a></th>
+    <th><a href="#" onClick="updateBookCheckout()">Edit</a></th>
+    <th>Books in Checkout ID</th>
+    <th>Checkout ID</th>
+    <th>Book ID</th>
+    <th>Date Returned</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>1</td>
+    <td>2</td>
+    <td align="right">3</td>
+    <td align="right">01/02/2024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>4</td>
+    <td>42</td>
+    <td align="right">10</td>
+    <td align="right">NULL</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>3</td>
+    <td>12</td>
+    <td align="right">4</td>
+    <td align="right">02/20/2022</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addBookCheckout">
+        <legend><strong>Add Book Checkout</strong></legend>
+          <fieldset class="fields">
+            <label> Books Checkout ID:</label>2
+            <label> Book ID </label> <select name="bookID"></select>
+            <label> Checkout ID </label> <select name="checkoutID"></select>
+            <label> Date Returned: </label> <input type= "date" name="dateReturned">
+      </fieldset>
+          <input class="btn" type="submit" id="addBookCheckout" value="Add Book Checkout">
+          <input class="btn" type="button" value="Cancel" onClick="browseBookCheckout()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="updateBookCheckout">
+    <form method="POST" id="UpdateBook">
+        <legend><strong>Update Book in Checkout</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="checkoutID" id="updatecheckoutID" value="1">
+            <label> Books Checkout ID</label><select name="booksAuthorID"></select>
+            <label> Date Returned: </label> <input type= "date" name="dateReturned">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveBookCheckout" value="Save Book Update">
+          <input class="btn" type="button" value="Cancel" onClick="browseBookCheckout()">
+	</form> 
+
+</body>
+</html>
