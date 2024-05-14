@@ -25,7 +25,7 @@
 				document.getElementById('insert').style.display = 'block';
         document.getElementById('insertBookCheckout').style.display = 'none';
 				document.getElementById('update').style.display = 'none';
-        document.getElementById('updateBookCheckout').style.display = 'none';
+/*         document.getElementById('updateBookCheckout').style.display = 'none'; */
 				document.getElementById('delete').style.display = 'none';
 			}
       else if (dowhat == 'insertBookCheckout'){
@@ -34,7 +34,7 @@
 				document.getElementById('insert').style.display = 'none';
         document.getElementById('insertBookCheckout').style.display = 'block';
 				document.getElementById('update').style.display = 'none';
-        document.getElementById('updateBookCheckout').style.display = 'none';
+/*         document.getElementById('updateBookCheckout').style.display = 'none'; */
 				document.getElementById('delete').style.display = 'none';
 			}
 			else if (dowhat == 'update'){
@@ -43,10 +43,10 @@
 				document.getElementById('insert').style.display = 'none';
         document.getElementById('insertBookCheckout').style.display = 'none';
 				document.getElementById('update').style.display = 'block';
-        document.getElementById('updateBookCheckout').style.display = 'none';
+/*         document.getElementById('updateBookCheckout').style.display = 'none'; */
 				document.getElementById('delete').style.display = 'none';
 			}
-      else if (dowhat == 'updateBook'){
+/*       else if (dowhat == 'updateBook'){
 				document.getElementById('browse').style.display = 'none';
         document.getElementById('browseBooks').style.display = 'none';
 				document.getElementById('insert').style.display = 'none';
@@ -54,14 +54,14 @@
 				document.getElementById('update').style.display = 'none';
         document.getElementById('updateBookCheckout').style.display = 'block';
 				document.getElementById('delete').style.display = 'none';
-			}
+			} */
 			else if (dowhat == 'delete'){
 				document.getElementById('browse').style.display = 'none';
         document.getElementById('browseBooks').style.display = 'none';
 				document.getElementById('insert').style.display = 'none';
         document.getElementById('insertBookCheckout').style.display = 'none';
 				document.getElementById('update').style.display = 'none';
-        document.getElementById('updateBookCheckout').style.display = 'none';
+/*         document.getElementById('updateBookCheckout').style.display = 'none'; */
 				document.getElementById('delete').style.display = 'block';
 			}
       else if (dowhat == 'all'){
@@ -70,7 +70,7 @@
 				document.getElementById('insert').style.display = 'block';
         document.getElementById('insertBookCheckout').style.display = 'block';
 				document.getElementById('update').style.display = 'block';
-        document.getElementById('updateBookCheckout').style.display = 'block';
+/*         document.getElementById('updateBookCheckout').style.display = 'block'; */
 				document.getElementById('delete').style.display = 'block';
 			}
 			else { //by default display browse
@@ -79,14 +79,14 @@
 				document.getElementById('insert').style.display = 'none';
         document.getElementById('insertBookCheckout').style.display = 'none';
 				document.getElementById('update').style.display = 'none';
-        document.getElementById('updateBookCheckout').style.display = 'none';
+/*         document.getElementById('updateBookCheckout').style.display = 'none'; */
 				document.getElementById('delete').style.display = 'none';
 			}
 		}
     function newCheckout() { showform('insert'); }
     function newBookCheckout() { showform('insertBookCheckout'); }
     function updateCheckout(pid) { showform('update'); }
-    function updateBook(pid) { showform('updateBook'); }
+/*     function updateBook(pid) { showform('updateBook'); } */
     function deleteCheckout(pid) { showform ('delete'); }
     function browseCheckout() { showform ('browse'); }
     function showAll() { showform ('all'); }
@@ -148,25 +148,21 @@
   <table border="1" cellpadding="5">
     <h3>Checked Out Books</h3>
     <tr>
-      <th><a href="#" onClick="newBookCheckout()">New</a></th>
       <th>Checkout ID</th>
       <th>Book Title</th>
       <th>Date Returned</th>
     </tr>
     <tr>
-      <td><a href="#" onClick="updateBook('this.checkoutID')">Edit</a></td>
       <td align="right" >1</td>
       <td>Pride and Prejudice</td>
       <td>11/10/2023</td>
     </tr>
     <tr>
-      <td><a href="#" onClick="updateBook('this.checkoutID')">Edit</a></td>
       <td align="right" >2</td>
       <td>Plato's Dialogues</td>
       <td>12/05/2023</td>
     </tr>
     <tr>
-      <td><a href="#" onClick="updateBook('this.checkoutID')">Edit</a></td>
       <td align="right">3</td>
       <td>The Mystery of the Worm: The Dance and the Animal</td>
       <td>12/25/2023</td>
@@ -193,7 +189,7 @@
   <form method="POST" id="addBookCheckout">
       <legend><strong>Add Book to Checkout</strong></legend>
         <fieldset class="fields">
-          <label> ID: </label> <select name="checkoutID"> </select>
+          <label> Checkout ID: </label> <select name="checkoutID"> </select>
           <label> Book </label> <select name="bookID"> </select>
           <label> Date Checked Out </label> <input type= "date" name="dateCheckedOut">
           <label> Date Due </label> <input type= "date" name="dateCheckedOut">
@@ -216,10 +212,9 @@
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveCheckout" value="Save Checkout">
           <input class="btn" type="button" value="Cancel" onClick="browseCheckout()">
-	</form> 
-</div><!-- update checkout-->
-<p>&nbsp;</p>
-<div id="updateBookCheckout">
+	</form>
+</div><!--update checkout--> 
+<!-- <div id="updateBookCheckout">
     <form method="POST" id="UpdateBook">
         <legend><strong>Update Book in Checkout</strong></legend>
           <fieldset class="fields">
@@ -231,7 +226,7 @@
           <input class="btn" type="submit" id="UpdateSaveBookCheckout" value="Save Book Update">
           <input class="btn" type="button" value="Cancel" onClick="browseCheckout()">
 	</form> 
-</div><!-- update book in checkout -->
+</div>< update book in checkout -->
 <p>&nbsp;</p>
 <div id="delete" style="display: block">
   <form method="POST" id="deleteCheckout">
@@ -241,7 +236,7 @@
           <input type="hidden" name="checkoutID" id="deletecheckoutID" value="1">
           <label><strong>ID:</strong></label> 1
             <label> <strong>Name</strong> </label> William Adama
-            
+           
     </fieldset>
         <input class="btn" type="submit" id="DeleteCheckout" value="Delete Checkout">
         <input class="btn" type="button" value="cancel" onClick="browseCheckout()">

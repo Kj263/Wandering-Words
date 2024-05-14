@@ -54,31 +54,27 @@
 <table border="1" cellpadding="5">
   <tr>
     <th><a href="#" onClick="newBookCheckout()">New</a></th>
-    <th><a href="#" onClick="updateBookCheckout()">Edit</a></th>
     <th>Books in Checkout ID</th>
     <th>Checkout ID</th>
     <th>Book ID</th>
     <th>Date Returned</th>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td><a href="#" onClick="updateBookCheckout('this.checkoutID')">Edit</a></td>
     <td>1</td>
     <td>2</td>
     <td align="right">3</td>
     <td align="right">01/02/2024</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td><a href="#" onClick="updateBookCheckout('this.checkoutID')">Edit</a></td>
     <td>4</td>
     <td>42</td>
     <td align="right">10</td>
     <td align="right">NULL</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td><a href="#" onClick="updateBookCheckout('this.checkoutID')">Edit</a></td>
     <td>3</td>
     <td>12</td>
     <td align="right">4</td>
@@ -106,7 +102,7 @@
         <legend><strong>Update Book in Checkout</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="checkoutID" id="updatecheckoutID" value="1">
-            <label> Books Checkout ID</label><select name="booksAuthorID"></select>
+            <label> Books Checkout ID:</label>
             <label> Date Returned: </label> <input type= "date" name="dateReturned">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveBookCheckout" value="Save Book Update">
