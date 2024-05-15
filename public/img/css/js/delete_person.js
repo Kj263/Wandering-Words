@@ -1,9 +1,10 @@
+
 function deletePerson(personID) {
     // Put our data we want to send in a javascript object
     let data = {
         id: personID
     };
-
+    
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("DELETE", "/delete-person-ajax", true);
