@@ -16,6 +16,11 @@ var app     = express();            // We need to instantiate an express object 
 PORT        = 9128;                 // Set a port number at the top so it's easy to change in the future
 
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
+
+
 // Database
 var db = require('./database/db-connector')
 
@@ -73,14 +78,115 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 
 app.get('/', function(req, res)
-    {  
-        let query1 = "SELECT checkoutID, Members.memberLastName, Employees.employeeLastName, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID";               // Define our query
-        //let query1 = "SELECT * FROM Checkouts";
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+{
+    // Declare Query 1
+    let query1;
 
-            res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.lname === undefined)
+    {
+        query1 = "SELECT * FROM bsg_people;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM bsg_people WHERE lname LIKE "${req.query.lname}%"`
+    }
+
+    // Query 2 is the same in both cases
+    let query2 = "SELECT * FROM bsg_planets;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the people
+        let people = rows;
+        
+        // Run the second query
+        db.pool.query(query2, (error, rows, fields) => {
+            
+            // Save the planets
+            let planets = rows;
+
+            return res.render('index', {data: people, planets: planets});
+        })
+    })
+});                                                       // received back from the query
+
+
+
+// app.js
+
+app.post('/add-person-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let homeworld = parseInt(data['input-homeworld']);
+    if (isNaN(homeworld))
+    {
+        homeworld = 'NULL'
+    }
+
+    let age = parseInt(data['input-age']);
+    if (isNaN(age))
+    {
+        age = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data['input-fname']}', '${data['input-lname']}', ${homeworld}, ${age})`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/');
+        }
+    })
+})
+
+app.delete('/delete-person-ajax/', function(req,res,next){
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let deleteBsg_Cert_People = `DELETE FROM bsg_cert_people WHERE pid = ?`;
+    let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
 
 
 /*
