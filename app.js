@@ -115,16 +115,64 @@ app.get('/', function(req, res)
 });                                                       // received back from the query
 
 //checkouts SELECT
+// app.get('/checkouts', function(req, res)
+//     {  
+//             // Declare Query 1
+//     let query1 = "SELECT * FROM Checkouts;";
 
+//     // Query 2 is the same in both cases
+//     let query2 = "SELECT * FROM Members;";
+
+//     // Query 2 is the same in both cases
+//     let query3 = "SELECT * FROM Employees;";
+
+//     // Run the 1st query
+//     db.pool.query(query1, function(error, rows, fields){
+        
+//         // Save the checkouts
+//         let checkouts = rows;
+        
+//         // Run the second query
+//         db.pool.query(query2, (error, rows, fields) => {
+            
+//             // Save the members
+//             let members = rows;
+//             return res.render('checkouts', {data: checkouts, members: members});
+//         })
+//     })
+// });                                                       // received back from the query
 app.get('/checkouts', function(req, res)
     {  
-        let query1 = "SELECT * FROM Checkouts;";               // Define our query
+            // Declare Query 1
+    let query1 = "SELECT * FROM Checkouts;";
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+    // Query 2 is the same in both cases
+    let query2 = "SELECT * FROM Members;";
 
-            res.render('checkouts', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+    // Query 2 is the same in both cases
+    let query3 = "SELECT * FROM Employees;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the checkouts
+        let checkouts = rows;
+        
+        // Run the second query
+        db.pool.query(query2, function(error, rows, fields){
+            
+            // Save the members
+            let members = rows;
+
+            db.pool.query(query2, (error, rows, fields) => {
+
+                // Save the employees
+                let employees = rows;
+                return res.render('checkouts', {data: checkouts, members: members, employees: employees});
+        })
+        })
+    })
+});                                                       // received back from the query
 
 
 // BOOKS SELECT
@@ -193,7 +241,7 @@ app.get('/booksCheckouts', function(req, res)
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
-
+//demo add
 app.post('/add-person-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -230,7 +278,43 @@ app.post('/add-person-form', function(req, res){
             res.redirect('/');
         }
     })
-})
+});
+
+// CHECKOUTS INSERT
+// app.js
+
+app.post('/add-checkout-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let employee = parseInt(data['input-employee']);
+    if (isNaN(employee))
+    {
+        employee = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    //query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data['input-fname']}', '${data['input-lname']}', ${homeworld}, ${age})`;
+    query1 = `INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) VALUES ('${data['input-member']}', '${employee}', '${data['input-dateCheckedOut']}', '${data['input-dateDue']}',)`
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/checkouts');
+        }
+    })
+});
 
 app.delete('/delete-person-ajax/', function(req,res,next){
     let data = req.body;
@@ -270,4 +354,4 @@ app.delete('/delete-person-ajax/', function(req,res,next){
 */
 app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
     console.log('Express started on http://classwork.engr.oregonstate.edu:' + PORT + '; press Ctrl-C to terminate.')
-});
+})

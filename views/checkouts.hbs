@@ -30,3 +30,33 @@
         {{/each}}
     </tbody>
 </table>
+
+
+<!-- /views/checkouts.hbs -->
+<h2>Adding Data using an HTML form</h2>
+<p>To add a new checkout, please enter its information below and click `Submit`!</p>
+<form id="add-checkout-form" method="POST" action="/add-checkout-form">
+    <label for="input-member">Member: </label>
+    <select name="input-member" id="input-member-ajax">
+        <option value="">Select a Member</option>
+        {{#each members}}
+        <option value="{{this.memberID}}">{{this.memberLastName}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-employee">Employee: </label>
+    <select name="input-employee" id="input-employee-ajax">
+        <option value="">Select an Employee</option>
+        {{#each employees}}
+        <option value="{{this.employeeID}}">{{this.employeeLastName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-dateCheckedOut">Date checked out: </label>
+    <input type="date" name="input-dateCheckedOut" id="input-dateCheckedOut">
+
+    <label for="input-dateDue">Date due: </label>
+    <input type="date" name="input-dateDue" id="input-dateDue">
+
+    <input type="submit">
+</form>
