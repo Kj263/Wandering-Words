@@ -21,10 +21,11 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr>
+            <td>{{this.checkoutID}}</td>
+            <td>{{this.memberID}}</td>
             <td>{{this.employeeID}}</td>
-            <td>{{this.employeeFirstName}}</td>
-            <td>{{this.employeeLastName}}</td>
-            <td>{{this.employeeEmail}}</td>
+            <td>{{this.dateCheckedOut}}</td>
+            <td>{{this.dateDue}}</td>
         </tr>
         {{/each}}
     </tbody>

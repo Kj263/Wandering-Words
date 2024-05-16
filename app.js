@@ -1,7 +1,7 @@
 // Citation for the following file:
 // Date: 05/11/2024
 // Copied from nodejs-starter-app
-// Specifically copied steps 0, 1, 2, 3, and 4
+// Specifically copied steps 0-8
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 
@@ -13,7 +13,7 @@
 */
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 9128;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9235;                 // Set a port number at the top so it's easy to change in the future
 
 
 app.use(express.json())
@@ -114,9 +114,85 @@ app.get('/', function(req, res)
     })
 });                                                       // received back from the query
 
+//checkouts SELECT
+
+app.get('/checkouts', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Checkouts;";               // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            res.render('checkouts', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
 
 
-// app.js
+// BOOKS SELECT
+app.get('/books', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Books;";               // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            res.render('books', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
+
+// AUTHORS SELECT
+app.get('/authors', function(req, res)
+{  
+    let query1 = "SELECT * FROM Authors;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('authors', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+// MEMBERS SELECT
+app.get('/members', function(req, res)
+{  
+    let query1 = "SELECT * FROM Members;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('members', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+// EMPLOYEES SELECT
+app.get('/employees', function(req, res)
+{  
+    let query1 = "SELECT * FROM Employees;";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('employees', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+// BOOKS WITH AUTHORS SELECT
+app.get('/booksAuthors', function(req, res)
+{  
+    let query1 = "SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID FROM Books INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('booksAuthors', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
+// BOOKS IN CHECKOUTS SELECT
+app.get('/booksCheckouts', function(req, res)
+{  
+    let query1 = "SELECT BooksCheckouts.booksCheckoutsID, Checkouts.checkoutID, Books.bookID, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID";               // Define our query
+
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+        res.render('booksCheckouts', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});                                                         // received back from the query
+
 
 app.post('/add-person-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
