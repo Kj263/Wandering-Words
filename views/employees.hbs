@@ -29,3 +29,19 @@
         {{/each}}
     </tbody>
 </table>
+
+<!-- /views/employees.hbs -->
+<h2>Add a new Employee</h2>
+<p>To add a new employee, please enter their information below and click `Submit`!</p>
+<form id="add-employee-form" method="POST" action="/add-employee-form">
+    <label for="input-employeeFirstName">First name: </label>
+    <input type="text" name="input-employeeFirstName" id="input-employeeFirstName">
+    
+    <label for="input-employeeLastName">Last name: </label>
+    <input type="text" name="input-employeeLastName" id="input-employeeLastName">
+
+    <label for="input-employeeEmail">Email: </label>
+    <input type="text" name="input-employeeEmail" id="input-employeeEmail">
+
+    <input type="submit">
+</form>

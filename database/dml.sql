@@ -93,6 +93,11 @@ VALUES (:employeeFirstNameInput, :employeeLastNameInput, :employeeEmailInput)
 
 --------------------------------------------------------------------------
 -- BOOKS WITH AUTHORS PAGE
+-- get all bookID's and bookTitle's for Book dropdown
+SELECT bookID, bookTitle FROM Books
+
+-- get all authorID's and authorLastName's for Author dropdown
+SELECT authorID, authorLastName FROM Authors
 
 -- display all book and author ids (M:M)
 SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID
@@ -112,7 +117,7 @@ VALUES (:bookID_from_form, :authorID_from_dropdown_input)
 --BOOKS IN CHECKOUTS PAGE
 
 -- get all bookID's and bookTitle's for Book dropdown
-SELECT bookID, bookTitle, FROM Books
+SELECT bookID, bookTitle FROM Books
 
 -- get all checkoutID's for CheckoutID dropdown
 SELECT checkoutID FROM Checkouts

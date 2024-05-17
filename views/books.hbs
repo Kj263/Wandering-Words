@@ -1,4 +1,5 @@
 {{!-- Create a table --}}
+<h2>Books</h2>
 <table>
 
     {{!-- Header section --}}
@@ -29,3 +30,20 @@
         {{/each}}
     </tbody>
 </table>
+
+
+<!-- /views/books.hbs -->
+<h2>Add a new Book</h2>
+<p>To add a new book, please enter its information below and click `Submit`!</p>
+<form id="add-book-form" method="POST" action="/add-book-form">
+    <label for="input-bookTitle">Book title: </label>
+    <input type="text" name="input-bookTitle" id="input-bookTitle">
+    
+    <label for="input-genre">Genre: </label>
+    <input type="text" name="input-genre" id="input-genre">
+
+    <label for="input-numCopies">Number of copies: </label>
+    <input type="number" name="input-numCopies" id="input-numCopies">
+
+    <input type="submit">
+</form>

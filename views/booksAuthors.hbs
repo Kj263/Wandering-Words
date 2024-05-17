@@ -28,3 +28,27 @@
         {{/each}}
     </tbody>
 </table>
+
+
+<!-- /views/booksAuthors.hbs -->
+<h2>Add a new Book Author connection</h2>
+<p>To add a book author connection, please enter its information below and click `Submit`!</p>
+<form id="add-bookAuthor-form" method="POST" action="/add-bookAuthor-form">
+    <label for="input-book">Book: </label>
+    <select name="input-book" id="input-book-ajax">
+        <option value="">Select a Book</option>
+        {{#each books}}
+        <option value="{{this.bookID}}">{{this.bookTitle}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-author">Author: </label>
+    <select name="input-author" id="input-author-ajax">
+        <option value="">Select an Author</option>
+        {{#each authors}}
+        <option value="{{this.authorID}}">{{this.authorLastName}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>

@@ -233,22 +233,60 @@ app.get('/employees', function(req, res)
 app.get('/booksAuthors', function(req, res)
 {  
     let query1 = "SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID FROM Books INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID";               // Define our query
+    let query2 = "SELECT bookID, bookTitle FROM Books";
+    let query3 = "SELECT authorID, authorLastName FROM Authors";
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        res.render('booksAuthors', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        //save booksAuthors
+        let booksAuthors = rows;
+
+        // Run the second query
+        db.pool.query(query2, (error, rows, fields) => {
+
+            // save the books
+            let books = rows;
+
+            // Run the third query
+            db.pool.query(query3, (error, rows, fields) => {
+
+                //save the authors
+                let authors = rows;
+                return res.render('booksAuthors', {data: booksAuthors, books: books, authors: authors});
+        })
+                // Render the index.hbs file, and also send the renderer
+    })      
+    })                                                // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
 // BOOKS IN CHECKOUTS SELECT
 app.get('/booksCheckouts', function(req, res)
 {  
     let query1 = "SELECT BooksCheckouts.booksCheckoutsID, Checkouts.checkoutID, Books.bookID, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID";               // Define our query
+    let query2 = "SELECT bookID, bookTitle FROM Books";
+    let query3 = "SELECT checkoutID FROM Checkouts";
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        res.render('booksCheckouts', {data: rows});                  // Render the index.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        //save booksCheckouts
+        let booksCheckouts = rows;
+
+        // Run the second query
+        db.pool.query(query2, (error, rows, fields) => {
+
+            // save the books
+            let books = rows;
+
+            // Run the third query
+            db.pool.query(query3, (error, rows, fields) => {
+
+                //save the checkouts
+                let checkouts = rows;
+                return res.render('booksCheckouts', {data: booksCheckouts, books: books, checkouts: checkouts});
+        })
+                // Render the index.hbs file, and also send the renderer
+    })      
+    })                                                     // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
 //demo add
@@ -321,6 +359,163 @@ app.post('/add-checkout-form', function(req, res){
         else
         {
             res.redirect('/checkouts');
+        }
+    })
+});
+
+// BOOKS INSERT
+
+app.post('/add-book-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Books (bookTitle, genre, numCopies) VALUES ('${data['input-bookTitle']}', '${data['input-genre']}', '${data['input-numCopies']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/books');
+        }
+    })
+});
+
+// AUTHORS INSERT
+app.post('/add-author-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Authors (authorFirstName, authorLastName) VALUES ('${data['input-authorFirstName']}', '${data['input-authorLastName']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/authors');
+        }
+    })
+});
+
+// MEMBERS INSERT
+app.post('/add-member-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Members (memberFirstName, memberLastName, memberEmail) VALUES ('${data['input-memberFirstName']}', '${data['input-memberLastName']}', '${data['input-memberEmail']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/members');
+        }
+    })
+});
+
+// BooksAuthors INSERT
+app.post('/add-bookAuthor-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO BooksAuthors (bookID, authorID) VALUES ('${data['input-book']}', '${data['input-author']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/booksAuthors');
+        }
+    })
+});
+
+// EMPLOYEES INSERT
+app.post('/add-employee-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Employees (employeeFirstName, employeeLastName, employeeEmail) VALUES ('${data['input-employeeFirstName']}', '${data['input-employeeLastName']}', '${data['input-employeeEmail']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/employees');
+        }
+    })
+});
+
+// BooksCheckouts INSERT
+app.post('/add-bookCheckout-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO BooksCheckouts (bookID, checkoutID, dateReturned) VALUES ('${data['input-book']}', '${data['input-checkout']}', '${data['input-dateReturned']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/booksCheckouts');
         }
     })
 });

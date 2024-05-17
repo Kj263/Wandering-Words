@@ -29,3 +29,31 @@
         {{/each}}
     </tbody>
 </table>
+
+
+
+<!-- /views/booksCheckouts.hbs -->
+<h2>Add a Book to a Checkout</h2>
+<p>To add a book to a checkout, please enter its information below and click `Submit`!</p>
+<form id="add-bookCheckout-form" method="POST" action="/add-bookCheckout-form">
+    <label for="input-book">Book: </label>
+    <select name="input-book" id="input-book-ajax">
+        <option value="">Select a Book</option>
+        {{#each books}}
+        <option value="{{this.bookID}}">{{this.bookTitle}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-checkout">Checkout: </label>
+    <select name="input-checkout" id="input-checkout-ajax">
+        <option value="">Select a Checkout</option>
+        {{#each checkouts}}
+        <option value="{{this.checkoutID}}">{{this.checkoutID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-dateReturned">Date returned: </label>
+    <input type="date" name="input-dateReturned" id="input-dateReturned">
+
+    <input type="submit">
+</form>

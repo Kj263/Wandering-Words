@@ -28,3 +28,17 @@
         {{/each}}
     </tbody>
 </table>
+
+
+<!-- /views/authors.hbs -->
+<h2>Add a new Author</h2>
+<p>To add a new author, please enter its information below and click `Submit`!</p>
+<form id="add-author-form" method="POST" action="/add-author-form">
+    <label for="input-authorFirstName">First name: </label>
+    <input type="text" name="input-authorFirstName" id="input-authorFirstName">
+    
+    <label for="input-authorLastName">Last name: </label>
+    <input type="text" name="input-authorLastName" id="input-authorLastName">
+
+    <input type="submit">
+</form>

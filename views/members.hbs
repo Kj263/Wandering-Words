@@ -29,3 +29,20 @@
         {{/each}}
     </tbody>
 </table>
+
+
+<!-- /views/members.hbs -->
+<h2>Add a new Member</h2>
+<p>To add a new member, please enter its information below and click `Submit`!</p>
+<form id="add-member-form" method="POST" action="/add-member-form">
+    <label for="input-memberFirstName">First name: </label>
+    <input type="text" name="input-memberFirstName" id="input-memberFirstName">
+    
+    <label for="input-memberLastName">Last name: </label>
+    <input type="text" name="input-memberLastName" id="input-memberLastName">
+
+    <label for="input-memberEmail">Email: </label>
+    <input type="text" name="input-memberEmail" id="input-memberEmail">
+
+    <input type="submit">
+</form>
