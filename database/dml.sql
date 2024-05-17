@@ -3,10 +3,10 @@
 -- CHECKOUTS PAGE
 
 -- get all memberID's and memberLastName's for Member dropdown
-SELECT memberID, memberLastName FROM Members
+SELECT memberID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member FROM Members
 
 -- get all employeeID's and employeeLastName's for Employee dropdown
-SELECT employeeID, employeeLastName FROM Employees
+SELECT employeeID, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee FROM Employees
 
 -- display all checkouts
 SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee,
@@ -20,6 +20,7 @@ SELECT Checkouts.checkoutID, bookTitle, dateReturned
 FROM Checkouts
 INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID
 INNER JOIN Books on Books.bookID = BooksCheckouts.bookID
+ORDER BY Checkouts.checkoutID
 
 -- add a new checkout
 INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) 

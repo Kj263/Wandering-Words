@@ -79,7 +79,8 @@
     <select name="input-member" id="input-member-ajax">
         <option value="">Select a Member</option>
         {{#each members}}
-        <option value="{{this.memberID}}">{{this.memberLastName}}</option>
+        {{!-- <option value="{{this.memberID}}">{{this.memberLastName}}</option> --}}
+        <option value="{{this.memberID}}">{{this.member}}</option>
         {{/each}}
     </select>
     
@@ -87,7 +88,8 @@
     <select name="input-employee" id="input-employee-ajax">
         <option value="">Select an Employee</option>
         {{#each employees}}
-        <option value="{{this.employeeID}}">{{this.employeeLastName}}</option>
+        {{!-- <option value="{{this.employeeID}}">{{this.employeeLastName}}</option> --}}
+        <option value="{{this.employeeID}}">{{this.employee}}</option>
         {{/each}}
     </select>
 
