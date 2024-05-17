@@ -2,10 +2,10 @@
 
 -- CHECKOUTS PAGE
 
--- get all memberID's and memberLastName's for Member dropdown
+-- get all memberID's and member name's for Member dropdown
 SELECT memberID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member FROM Members
 
--- get all employeeID's and employeeLastName's for Employee dropdown
+-- get all employeeID's and employee name's for Employee dropdown
 SELECT employeeID, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee FROM Employees
 
 -- display all checkouts
@@ -97,8 +97,8 @@ VALUES (:employeeFirstNameInput, :employeeLastNameInput, :employeeEmailInput)
 -- get all bookID's and bookTitle's for Book dropdown
 SELECT bookID, bookTitle FROM Books
 
--- get all authorID's and authorLastName's for Author dropdown
-SELECT authorID, authorLastName FROM Authors
+-- get all authorID's and author name's for Author dropdown
+SELECT authorID, CONCAT(Authors.authorFirstName,' ',Authors.authorLastName) AS author FROM Authors
 
 -- display all book and author ids (M:M)
 SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID

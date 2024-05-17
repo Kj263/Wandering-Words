@@ -1,4 +1,13 @@
+<!--Citation for booksCheckouts.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+<!-- display booksCheckouts using a table-->
 {{!-- Create a table --}}
+<h2>Books in Checkouts</h2>
 <table>
 
     {{!-- Header section --}}
@@ -18,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the booksCheckoutsID, bookID, checkoutID, and dateReturned in order --}}
         {{#each data}}
         <tr>
             <td>{{this.booksCheckoutsID}}</td>
@@ -32,7 +41,9 @@
 
 
 
-<!-- /views/booksCheckouts.hbs -->
+<!-- INSERT a new bookCheckout using an HTML form with POST 
+Gather book and checkout with input from dropdown fields 
+Gather dateReturned as date input-->
 <h2>Add a Book to a Checkout</h2>
 <p>To add a book to a checkout, please enter its information below and click `Submit`!</p>
 <form id="add-bookCheckout-form" method="POST" action="/add-bookCheckout-form">

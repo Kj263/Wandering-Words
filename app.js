@@ -1,12 +1,9 @@
-// Citation for the following file:
-// Date: 05/11/2024
-// Copied from nodejs-starter-app
-// Specifically copied steps 0-8
+// Citation for app.js:
+// Date: 05/17/2024
+// Copied steps 0-8 from nodejs-starter-app
+// Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-
-
-// App.js
 
 /*
     SETUP
@@ -24,7 +21,7 @@ app.use(express.static('public'))
 // Database
 var db = require('./database/db-connector')
 
-// handlebars
+// use handlebars
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the handlebars engine to process templates
@@ -35,18 +32,20 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 /*
     ROUTES
 */
+
 // CHECKOUTS SELECT
 app.get('/', function(req, res)
     {  
-            // Declare Query 1
+    // query to display all checkouts
     let query1 = "SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID;";
 
-    // Query 2 is the same in both cases
+    // query for member dropdown
     let query2 = "SELECT memberID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member FROM Members;";
 
-    // Query 2 is the same in both cases
+    // query for employee dropdown
     let query3 = "SELECT employeeID, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee FROM Employees;";
 
+    // query to display checked-out books
     let query4 = "SELECT Checkouts.checkoutID, bookTitle, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID ORDER BY Checkouts.checkoutID;";
 
     // Run the 1st query
@@ -61,79 +60,95 @@ app.get('/', function(req, res)
             // Save the members
             let members = rows;
 
+            // run third query
             db.pool.query(query3, (error, rows, fields) => {
 
                 // Save the employees
                 let employees = rows;
                 
+                // run fourth query
                 db.pool.query(query4, (error, rows, fields) => {
 
                 //save the checked out books
                 let checkedOutBooks = rows;
 
+                // render the queries
                 return res.render('index', {data: checkouts, members: members, employees: employees, checkedOutBooks: checkedOutBooks});
                 })
         })
         })
     })
-});                                                       // received back from the query
+});                                        
 
 
 
 // BOOKS SELECT
 app.get('/books', function(req, res)
     {  
-        let query1 = "SELECT * FROM Books;";               // Define our query
+        // query to display all books
+        let query1 = "SELECT * FROM Books;";         
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-            res.render('books', {data: rows});                  // Render the index.hbs file, and also send the renderer
+            res.render('books', {data: rows});                  // Render the books.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
+
 
 // AUTHORS SELECT
 app.get('/authors', function(req, res)
 {  
-    let query1 = "SELECT * FROM Authors;";               // Define our query
+    // query to display all authors
+    let query1 = "SELECT * FROM Authors;";  
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        res.render('authors', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        res.render('authors', {data: rows});                  // Render the authors.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
+
 
 // MEMBERS SELECT
 app.get('/members', function(req, res)
 {  
-    let query1 = "SELECT * FROM Members;";               // Define our query
+    // query to display all Members
+    let query1 = "SELECT * FROM Members;";   
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        res.render('members', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        res.render('members', {data: rows});                  // Render the members.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
+
 
 // EMPLOYEES SELECT
 app.get('/employees', function(req, res)
 {  
-    let query1 = "SELECT * FROM Employees;";               // Define our query
+    // query to display all employees
+    let query1 = "SELECT * FROM Employees;"; 
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        res.render('employees', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        res.render('employees', {data: rows});                  // Render the employees.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
+
 
 // BOOKS WITH AUTHORS SELECT
 app.get('/booksAuthors', function(req, res)
 {  
-    let query1 = "SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID FROM Books INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID";               // Define our query
+    // query to display all booksAuthors
+    let query1 = "SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID FROM Books INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID";         
+    
+    // query for book dropdown
     let query2 = "SELECT bookID, bookTitle FROM Books";
-    let query3 = "SELECT authorID, authorLastName FROM Authors";
+
+    // query for author dropdown
+    let query3 = "SELECT authorID, CONCAT(Authors.authorFirstName,' ',Authors.authorLastName) AS author FROM Authors;";
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-        //save booksAuthors
+        // save booksAuthors
         let booksAuthors = rows;
 
         // Run the second query
@@ -147,18 +162,24 @@ app.get('/booksAuthors', function(req, res)
 
                 //save the authors
                 let authors = rows;
-                return res.render('booksAuthors', {data: booksAuthors, books: books, authors: authors});
-        })
-                // Render the index.hbs file, and also send the renderer
+                return res.render('booksAuthors', {data: booksAuthors, books: books, authors: authors}); // Render the index.hbs file, and also send the renderer
+        })                                                                                              // an object where 'data' is equal to the 'rows' we
+                                                                                                        // received back from the query
     })      
-    })                                                // an object where 'data' is equal to the 'rows' we
-});                                                         // received back from the query
+    })                                     
+});                                                         
+
 
 // BOOKS IN CHECKOUTS SELECT
 app.get('/booksCheckouts', function(req, res)
 {  
+    // query to display all booksCheckouts
     let query1 = "SELECT BooksCheckouts.booksCheckoutsID, Checkouts.checkoutID, Books.bookID, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID";               // Define our query
+    
+    // query for books dropdown
     let query2 = "SELECT bookID, bookTitle FROM Books";
+
+    // query for checkouts dropdown
     let query3 = "SELECT checkoutID FROM Checkouts";
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
@@ -177,21 +198,21 @@ app.get('/booksCheckouts', function(req, res)
 
                 //save the checkouts
                 let checkouts = rows;
-                return res.render('booksCheckouts', {data: booksCheckouts, books: books, checkouts: checkouts});
-        })
-                // Render the index.hbs file, and also send the renderer
+                return res.render('booksCheckouts', {data: booksCheckouts, books: books, checkouts: checkouts}); // Render the index.hbs file, and also send the renderer
+        })                                                                                                       // an object where 'data' is equal to the 'rows' we
+                                                                                                                 // received back from the query
     })      
-    })                                                     // an object where 'data' is equal to the 'rows' we
-});                                                         // received back from the query
+    })                                                     
+});                                                         
+
+
 
 // CHECKOUTS INSERT
-// app.js
-
 app.post('/add-checkout-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // Capture NULL values
+    // Capture NULL employee value
     let employee = parseInt(data['input-employee']);
     if (isNaN(employee))
     {
@@ -210,7 +231,7 @@ app.post('/add-checkout-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Checkouts and
         // presents it on the screen
         else
         {
@@ -218,6 +239,7 @@ app.post('/add-checkout-form', function(req, res){
         }
     })
 });
+
 
 // BOOKS INSERT
 app.post('/add-book-form', function(req, res){
@@ -236,7 +258,7 @@ app.post('/add-book-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Books and
         // presents it on the screen
         else
         {
@@ -244,6 +266,7 @@ app.post('/add-book-form', function(req, res){
         }
     })
 });
+
 
 // AUTHORS INSERT
 app.post('/add-author-form', function(req, res){
@@ -262,7 +285,7 @@ app.post('/add-author-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Authors and
         // presents it on the screen
         else
         {
@@ -270,6 +293,7 @@ app.post('/add-author-form', function(req, res){
         }
     })
 });
+
 
 // MEMBERS INSERT
 app.post('/add-member-form', function(req, res){
@@ -288,7 +312,7 @@ app.post('/add-member-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Members and
         // presents it on the screen
         else
         {
@@ -297,31 +321,6 @@ app.post('/add-member-form', function(req, res){
     })
 });
 
-// BooksAuthors INSERT
-app.post('/add-bookAuthor-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO BooksAuthors (bookID, authorID) VALUES ('${data['input-book']}', '${data['input-author']}')`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/booksAuthors');
-        }
-    })
-});
 
 // EMPLOYEES INSERT
 app.post('/add-employee-form', function(req, res){
@@ -340,7 +339,7 @@ app.post('/add-employee-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM Employees and
         // presents it on the screen
         else
         {
@@ -349,13 +348,14 @@ app.post('/add-employee-form', function(req, res){
     })
 });
 
-// BooksCheckouts INSERT
-app.post('/add-bookCheckout-form', function(req, res){
+
+// BooksAuthors INSERT
+app.post('/add-bookAuthor-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO BooksCheckouts (bookID, checkoutID, dateReturned) VALUES ('${data['input-book']}', '${data['input-checkout']}', '${data['input-dateReturned']}')`;
+    query1 = `INSERT INTO BooksAuthors (bookID, authorID) VALUES ('${data['input-book']}', '${data['input-author']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -366,7 +366,41 @@ app.post('/add-bookCheckout-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT query for BooksAuthors and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/booksAuthors');
+        }
+    })
+});
+
+
+// BooksCheckouts INSERT
+app.post('/add-bookCheckout-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL dateReturned value
+    let dateReturned = Date.parse(data['input-dateReturned']);
+    if (isNaN(dateReturned))
+    {
+        dateReturned = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO BooksCheckouts (bookID, checkoutID, dateReturned) VALUES ('${data['input-book']}', '${data['input-checkout']}', ${dateReturned})`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT query for BooksCheckouts and
         // presents it on the screen
         else
         {

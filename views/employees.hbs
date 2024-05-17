@@ -1,4 +1,13 @@
+<!--Citation for employees.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+<!-- display all Employees using a table-->
 {{!-- Create a table --}}
+<h2>Employees</h2>
 <table>
 
     {{!-- Header section --}}
@@ -18,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the employeeID, employeeFirstName, employeeLastName, and employeeEmail in order --}}
         {{#each data}}
         <tr>
             <td>{{this.employeeID}}</td>
@@ -30,7 +39,11 @@
     </tbody>
 </table>
 
-<!-- /views/employees.hbs -->
+
+
+
+<!-- INSERT a new Employee using an HTML form with POST 
+Gather employeeFirstName, employeeLastName, and employeeEmail as input-->
 <h2>Add a new Employee</h2>
 <p>To add a new employee, please enter their information below and click `Submit`!</p>
 <form id="add-employee-form" method="POST" action="/add-employee-form">

@@ -1,4 +1,13 @@
+<!--Citation for authors.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+<!-- display all Authors using a table-->
 {{!-- Create a table --}}
+<h2>Authors</h2>
 <table>
 
     {{!-- Header section --}}
@@ -18,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the authorID, authorFirstName, authorLastName in order --}}
         {{#each data}}
         <tr>
             <td>{{this.authorID}}</td>
@@ -30,7 +39,9 @@
 </table>
 
 
-<!-- /views/authors.hbs -->
+
+<!-- INSERT a new Author using an HTML form with POST 
+Gather first name and last name as input-->
 <h2>Add a new Author</h2>
 <p>To add a new author, please enter its information below and click `Submit`!</p>
 <form id="add-author-form" method="POST" action="/add-author-form">

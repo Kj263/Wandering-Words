@@ -1,3 +1,14 @@
+<!--Citation for index.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+
+{{!-- the checkouts entity acts as our index page --}}
+
+<!-- display Checkouts using a table-->
 <h2>Checkouts</h2>
 {{!-- Create a table --}}
 <table>
@@ -19,7 +30,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the checkoutID, member, employee, dateCheckedOut and dateDue in order --}}
         {{#each data}}
         <tr>
             <td>{{this.checkoutID}}</td>
@@ -34,9 +45,9 @@
 
 
 
+
+{{!--display all checked out books using a table --}}
 <h2>Checked Out Books</h2>
-{{!--display all checked out books --}}
-{{!-- Create a table --}}
 <table>
 
     {{!-- Header section --}}
@@ -56,7 +67,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the checkoutID, bookTitle, and dateReturned in order --}}
         {{#each checkedOutBooks}}
         <tr>
             <td>{{this.checkoutID}}</td>
@@ -70,8 +81,9 @@
 
 
 
-
-<!-- /views/checkouts.hbs -->
+<!-- INSERT a new Checkout using an HTML form with POST 
+Gather member and employee with input from dropdown fields 
+Gather dateCheckedOut and dateDue as date input-->
 <h2>Add a new Checkout</h2>
 <p>To add a new checkout, please enter its information below and click `Submit`!</p>
 <form id="add-checkout-form" method="POST" action="/add-checkout-form">
@@ -79,7 +91,6 @@
     <select name="input-member" id="input-member-ajax">
         <option value="">Select a Member</option>
         {{#each members}}
-        {{!-- <option value="{{this.memberID}}">{{this.memberLastName}}</option> --}}
         <option value="{{this.memberID}}">{{this.member}}</option>
         {{/each}}
     </select>
@@ -88,7 +99,6 @@
     <select name="input-employee" id="input-employee-ajax">
         <option value="">Select an Employee</option>
         {{#each employees}}
-        {{!-- <option value="{{this.employeeID}}">{{this.employeeLastName}}</option> --}}
         <option value="{{this.employeeID}}">{{this.employee}}</option>
         {{/each}}
     </select>

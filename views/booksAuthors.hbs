@@ -1,4 +1,13 @@
+<!--Citation for booksAuthors.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+<!-- display booksAuthors using a table-->
 {{!-- Create a table --}}
+<h2>Books with Authors</h2>
 <table>
 
     {{!-- Header section --}}
@@ -18,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the booksAuthorsID, bookID, and authorID in order --}}
         {{#each data}}
         <tr>
             <td>{{this.booksAuthorsID}}</td>
@@ -30,7 +39,8 @@
 </table>
 
 
-<!-- /views/booksAuthors.hbs -->
+<!-- INSERT a new bookAuthor using an HTML form with POST 
+Gather book and author with input from dropdown fields -->
 <h2>Add a new Book Author connection</h2>
 <p>To add a book author connection, please enter its information below and click `Submit`!</p>
 <form id="add-bookAuthor-form" method="POST" action="/add-bookAuthor-form">
@@ -46,7 +56,7 @@
     <select name="input-author" id="input-author-ajax">
         <option value="">Select an Author</option>
         {{#each authors}}
-        <option value="{{this.authorID}}">{{this.authorLastName}}</option>
+        <option value="{{this.authorID}}">{{this.author}}</option>
         {{/each}}
     </select>
 

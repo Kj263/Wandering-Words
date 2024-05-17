@@ -1,4 +1,13 @@
+<!--Citation for members.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+<!-- display all Members using a table-->
 {{!-- Create a table --}}
+<h2>Members</h2>
 <table>
 
     {{!-- Header section --}}
@@ -18,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the memberID, memberFirstName, memberLastName, and memberEmail in order --}}
         {{#each data}}
         <tr>
             <td>{{this.memberID}}</td>
@@ -31,7 +40,8 @@
 </table>
 
 
-<!-- /views/members.hbs -->
+<!-- INSERT a new Member using an HTML form with POST 
+Gather memberFirstName, memberLastName, and memberEmail as input-->
 <h2>Add a new Member</h2>
 <p>To add a new member, please enter its information below and click `Submit`!</p>
 <form id="add-member-form" method="POST" action="/add-member-form">

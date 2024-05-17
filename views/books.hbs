@@ -1,3 +1,11 @@
+<!--Citation for books.hbs:
+Date: 05/17/2024
+Copied steps 4 and 5 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+-->
+
+<!-- display all Books using a table-->
 {{!-- Create a table --}}
 <h2>Books</h2>
 <table>
@@ -19,7 +27,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the bookID, bookTitle, bookGenre, and numCopies in order --}}
         {{#each data}}
         <tr>
             <td>{{this.bookID}}</td>
@@ -32,7 +40,8 @@
 </table>
 
 
-<!-- /views/books.hbs -->
+<!-- INSERT a new Book using an HTML form with POST 
+Gather title, genre, and numCopies as input-->
 <h2>Add a new Book</h2>
 <p>To add a new book, please enter its information below and click `Submit`!</p>
 <form id="add-book-form" method="POST" action="/add-book-form">
