@@ -20,12 +20,12 @@ CREATE OR REPLACE TABLE `Authors` (
 -- Insert `Authors`
 -- -----------------------------------------------------
 
-INSERT INTO `Authors` (`authorID`, `authorFirstName`, `authorLastName`) VALUES
-(1, 'J.K.', 'Rowling'),
-(2, 'Jane', 'Austen'),
-(3, 'Conan', 'Doyle'),
-(4, 'Stephen', 'King'),
-(5, 'Peter', 'Straub');
+INSERT INTO `Authors` (`authorFirstName`, `authorLastName`) VALUES
+('J.K.', 'Rowling'),
+('Jane', 'Austen'),
+('Conan', 'Doyle'),
+('Stephen', 'King'),
+('Peter', 'Straub');
 
 -- -----------------------------------------------------
 -- Table `Books`
@@ -46,12 +46,12 @@ CREATE OR REPLACE TABLE `Books` (
 -- Insert `Books`
 -- -----------------------------------------------------
 
-INSERT INTO `Books` (`bookID`, `bookTitle`, `genre`, `numCopies`) VALUES
-(1, 'Harry Potter and the Chamber of Secrets', 'fantasy', 5),
-(2, 'Harry Potter and the Prisoner of Azkaban', 'fantasy', 5),
-(3, 'Sherlock Holmes', 'mystery', 5),
-(4, 'Pride and Prejudice', 'mystery', 5),
-(5, 'The Talisman', 'fantasy', 5);
+INSERT INTO `Books` (`bookTitle`, `genre`, `numCopies`) VALUES
+('Harry Potter and the Chamber of Secrets', 'fantasy', 5),
+('Harry Potter and the Prisoner of Azkaban', 'fantasy', 5),
+('Sherlock Holmes', 'mystery', 5),
+('Pride and Prejudice', 'mystery', 5),
+('The Talisman', 'fantasy', 5);
 
 -- -----------------------------------------------------
 -- Table `Employees`
@@ -73,12 +73,12 @@ CREATE OR REPLACE TABLE `Employees` (
 -- Insert `Employees`
 -- -----------------------------------------------------
 
-INSERT INTO `Employees` (`employeeID`, `employeeFirstName`, `employeeLastName`, `employeeEmail`) VALUES
-(1, 'Haley', 'Smith', 'haleysmith@gmail.com'),
-(2, 'John', 'Martin', 'johnmartin@gmail.com'),
-(3, 'Sue', 'Sylvester', 'suesylvester@gmail.com'),
-(4, 'Brad', 'Pitt', 'bradpitt@gmail.com'),
-(5, 'Annie', 'Hall', 'anniehall@gmail.com');
+INSERT INTO `Employees` (`employeeFirstName`, `employeeLastName`, `employeeEmail`) VALUES
+('Haley', 'Smith', 'haleysmith@gmail.com'),
+('John', 'Martin', 'johnmartin@gmail.com'),
+('Sue', 'Sylvester', 'suesylvester@gmail.com'),
+('Brad', 'Pitt', 'bradpitt@gmail.com'),
+('Annie', 'Hall', 'anniehall@gmail.com');
 
 -- -----------------------------------------------------
 -- Table `Members`
@@ -100,12 +100,12 @@ CREATE OR REPLACE TABLE `Members` (
 -- Insert `Members`
 -- -----------------------------------------------------
 
-INSERT INTO `Members` (`memberID`, `memberFirstName`, `memberLastName`, `memberEmail`) VALUES
-(1, 'Taylor', 'Swift', 'swiftie101@gmail.com'),
-(2, 'John', 'Cena', 'biker23@gmail.com'),
-(3, 'Eddie', 'Murphy', 'edmurphy@yahoo.com'),
-(4, 'Hannah', 'Montana', 'cowgirl3@yahoo.com'),
-(5, 'Miley', 'Cyrus', 'singsingsing@gmail.com');
+INSERT INTO `Members` (`memberFirstName`, `memberLastName`, `memberEmail`) VALUES
+('Taylor', 'Swift', 'swiftie101@gmail.com'),
+('John', 'Cena', 'biker23@gmail.com'),
+('Eddie', 'Murphy', 'edmurphy@yahoo.com'),
+('Hannah', 'Montana', 'cowgirl3@yahoo.com'),
+('Miley', 'Cyrus', 'singsingsing@gmail.com');
 
 -- -----------------------------------------------------
 -- Table `BooksAuthors`
@@ -139,13 +139,13 @@ ALTER TABLE `BooksAuthors`
 -- Insert `BooksAuthors`
 -- -----------------------------------------------------
 
-INSERT INTO `BooksAuthors` (`booksAuthorsID`, `bookID`, `authorID`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 3),
-(4, 4, 2),
-(5, 5, 4),
-(6, 5, 5);
+INSERT INTO `BooksAuthors` (`bookID`, `authorID`) VALUES
+(1, 1),
+(2, 1),
+(3, 3),
+(4, 2),
+(5, 4),
+(5, 5);
 
 -- -----------------------------------------------------
 -- Table `Checkouts`
@@ -181,12 +181,12 @@ ALTER TABLE `Checkouts`
 -- Insert `Checkouts`
 -- -----------------------------------------------------
 
-INSERT INTO `Checkouts` (`checkoutID`, `memberID`, `employeeID`, `dateCheckedOut`, `dateDue`) VALUES
-(1, 3, 1, '2024-04-09', '2024-04-29'),
-(2, 3, 5, '2023-03-05', '2023-03-25'),
-(3, 2, 4, '2023-11-02', '2023-11-23'),
-(4, 1, 4, '2022-05-05', '2022-05-25'),
-(5, 4, 2, '2023-12-06', '2023-12-26');
+INSERT INTO `Checkouts` (`memberID`, `employeeID`, `dateCheckedOut`, `dateDue`) VALUES
+(3, 1, '2024-04-09', '2024-04-29'),
+(3, 5, '2023-03-05', '2023-03-25'),
+(2, 4, '2023-11-02', '2023-11-23'),
+(1, 4, '2022-05-05', '2022-05-25'),
+(4, 2, '2023-12-06', '2023-12-26');
 
 -- -----------------------------------------------------
 -- Table `BooksCheckouts`
@@ -221,12 +221,12 @@ ALTER TABLE `BooksCheckouts`
 -- Insert `BooksCheckouts`
 -- -----------------------------------------------------
 
-INSERT INTO `BooksCheckouts` (`booksCheckoutsID`, `checkoutID`, `bookID`, `dateReturned`) VALUES
-(16, 1, 2, NULL),
-(17, 2, 2, '2023-03-20'),
-(18, 4, 3, '2022-05-22'),
-(19, 4, 5, '2022-05-10'),
-(20, 3, 4, '2023-11-20');
+INSERT INTO `BooksCheckouts` (`checkoutID`, `bookID`, `dateReturned`) VALUES
+(1, 2, NULL),
+(2, 2, '2023-03-20'),
+(4, 3, '2022-05-22'),
+(4, 5, '2022-05-10'),
+(3, 4, '2023-11-20');
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
