@@ -35,47 +35,6 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 /*
     ROUTES
 */
-// app.get('/', function(req, res)                 // This is the basic syntax for what is called a 'route'
-//     {
-//         res.send("The server is running by Allison!")      // This function literally sends the string "The server is running!" to the computer
-//     });                                         // requesting the web site.
-
-// app.get('/', function(req, res)
-//     {
-//         // Define our queries
-//         query1 = 'DROP TABLE IF EXISTS diagnostic;';
-//         query2 = 'CREATE TABLE diagnostic(id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(255) NOT NULL);';
-//         query3 = 'INSERT INTO diagnostic (text) VALUES ("MySQL is working for majorsal!")'; //replace with your onid
-//         query4 = 'SELECT * FROM diagnostic;';
-
-//         // Execute every query in an asynchronous manner, we want each query to finish before the next one starts
-
-//         // DROP TABLE...
-//         db.pool.query(query1, function (err, results, fields){
-
-//             // CREATE TABLE...
-//             db.pool.query(query2, function(err, results, fields){
-
-//                 // INSERT INTO...
-//                 db.pool.query(query3, function(err, results, fields){
-
-//                     // SELECT *...
-//                     db.pool.query(query4, function(err, results, fields){
-
-//                         // Send the results to the browser
-//                         res.send(JSON.stringify(results));
-//                     });
-//                 });
-//             });
-//         });
-//     });
-
-
-// app.get('/', function(req, res)
-//     {
-//         res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
-//     });                                         // will process this file, before sending the finished HTML to the client.
-
 
 app.get('/', function(req, res)
 {
@@ -114,33 +73,7 @@ app.get('/', function(req, res)
     })
 });                                                       // received back from the query
 
-//checkouts SELECT
-// app.get('/checkouts', function(req, res)
-//     {  
-//             // Declare Query 1
-//     let query1 = "SELECT * FROM Checkouts;";
-
-//     // Query 2 is the same in both cases
-//     let query2 = "SELECT * FROM Members;";
-
-//     // Query 2 is the same in both cases
-//     let query3 = "SELECT * FROM Employees;";
-
-//     // Run the 1st query
-//     db.pool.query(query1, function(error, rows, fields){
-        
-//         // Save the checkouts
-//         let checkouts = rows;
-        
-//         // Run the second query
-//         db.pool.query(query2, (error, rows, fields) => {
-            
-//             // Save the members
-//             let members = rows;
-//             return res.render('checkouts', {data: checkouts, members: members});
-//         })
-//     })
-// });                                                       // received back from the query
+// CHECKOUTS SELECT
 app.get('/checkouts', function(req, res)
     {  
             // Declare Query 1
