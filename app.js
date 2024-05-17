@@ -39,7 +39,8 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 app.get('/', function(req, res)
     {  
             // Declare Query 1
-    let query1 = "SELECT * FROM Checkouts;";
+    // let query1 = "SELECT * FROM Checkouts;";
+    let query1 = "SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID;";
 
     // Query 2 is the same in both cases
     let query2 = "SELECT * FROM Members;";
