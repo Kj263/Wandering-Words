@@ -305,8 +305,7 @@ app.post('/add-checkout-form', function(req, res){
     }
 
     // Create the query and run it on the database
-    //query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data['input-fname']}', '${data['input-lname']}', ${homeworld}, ${age})`;
-    query1 = `INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) VALUES ('${data['input-member']}', '${employee}', '${data['input-dateCheckedOut']}', '${data['input-dateDue']}',)`
+    query1 = `INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) VALUES ('${data['input-member']}', '${employee}', '${data['input-dateCheckedOut']}', '${data['input-dateDue']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
