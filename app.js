@@ -152,6 +152,8 @@ app.get('/checkouts', function(req, res)
     // Query 2 is the same in both cases
     let query3 = "SELECT * FROM Employees;";
 
+    let query4 = "SELECT Checkouts.checkoutID, bookTitle, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID;";
+
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
         
@@ -159,20 +161,28 @@ app.get('/checkouts', function(req, res)
         let checkouts = rows;
         
         // Run the second query
-        db.pool.query(query2, function(error, rows, fields){
+        db.pool.query(query2, (error, rows, fields) => {
             
             // Save the members
             let members = rows;
 
-            db.pool.query(query2, (error, rows, fields) => {
+            db.pool.query(query3, (error, rows, fields) => {
 
                 // Save the employees
                 let employees = rows;
-                return res.render('checkouts', {data: checkouts, members: members, employees: employees});
+                
+                db.pool.query(query4, (error, rows, fields) => {
+
+                //save the checked out books
+                let checkedOutBooks = rows;
+
+                return res.render('checkouts', {data: checkouts, members: members, employees: employees, checkedOutBooks: checkedOutBooks});
+                })
         })
         })
     })
 });                                                       // received back from the query
+
 
 
 // BOOKS SELECT
