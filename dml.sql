@@ -137,4 +137,3 @@ UPDATE BooksCheckouts
 SET dateReturned = :dateReturnedInput
 WHERE BooksCheckouts.booksCheckoutsID = :booksCheckoutsID_from_update_form
 
-
