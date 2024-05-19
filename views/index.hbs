@@ -5,13 +5,14 @@ Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 -->
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 {{!-- the checkouts entity acts as our index page --}}
 
 <!-- display Checkouts using a table-->
 <h2>Checkouts</h2>
 {{!-- Create a table --}}
-<table>
+<table id = "checkouts-table">
 
     {{!-- Header section --}}
     <thead>
@@ -24,6 +25,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
                 {{@key}}
             </th>
             {{/each}}
+            <th>Delete</th>
         </tr>
     </thead>
 
@@ -38,12 +40,12 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
             <td>{{this.employee}}</td>
             <td>{{this.dateCheckedOut}}</td>
             <td>{{this.dateDue}}</td>
+            <td><button onclick="deleteCheckout({{this.checkoutID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-
-
+<script src="./js/delete_checkout.js"></script>
 
 
 {{!--display all checked out books using a table --}}
@@ -111,3 +113,38 @@ Gather dateCheckedOut and dateDue as date input-->
 
     <input type="submit">
 </form>
+
+<!-- UPDATE a Checkout -->
+<h2>Updating A Checkout</h2>
+<p>To update a member in the Checkout...FIX THIS</p>
+<form id="update-checkout-form-ajax">
+
+    <label for="input-checkoutID">Checkout: </label>
+    <select name="input-checkoutID" id="mySelect">
+        <option value="test">Select an Checkout</option>
+        {{#each data}}
+        <option value="{{this.checkoutID}}">{{this.checkoutID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-member">Member: </label>
+    <select name="input-member" id="input-member-update">
+        <option>Select a Member</option>
+        {{#each members}}
+        <option value="{{this.memberID}}">{{this.member}}</option>
+        {{/each}}
+    </select>
+
+    <label for='input-employee'>Employee: </label>
+    <select name="input-employee" id="input-employee-update">
+        <option>Select an Employee</option>
+        {{#each employees}}
+        <option value="{{this.employeeID}}">{{this.employee}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_checkout.js"></script>

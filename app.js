@@ -10,7 +10,7 @@
 */
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-PORT        = 9235;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 9365;                 // Set a port number at the top so it's easy to change in the future
 
 
 app.use(express.json())
@@ -240,6 +240,84 @@ app.post('/add-checkout-form', function(req, res){
     })
 });
 
+// CHECKOUTS DELETE
+app.delete('/delete-checkout-ajax/', function(req,res,next){
+    let data = req.body;
+    let checkoutID = parseInt(data.id);
+    let deleteBooksCheckouts_Checkout = `DELETE FROM BooksCheckouts WHERE checkoutID = ?`;
+    let deleteCheckouts_Checkout= `DELETE FROM Checkouts WHERE checkoutID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBooksCheckouts_Checkout, [checkoutID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteCheckouts_Checkout, [checkoutID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
+// CHECKOUTS UPDATE
+app.put('/put-checkout-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let member = parseInt(data.member);
+    let employee = parseInt(data.employee);
+    let checkout = parseInt(data.checkout);
+  
+    let queryUpdateCheckout = `UPDATE Checkouts SET memberID = ?, employeeID = ? WHERE checkoutID = ?`;
+    let selectMember = `SELECT * FROM Members WHERE memberID = ?`;
+    let selectEmployee = 'SELECT * FROM Employees WHERE employeeID = ?';
+  
+          // Run the 1st query
+          db.pool.query(queryUpdateCheckout, [member, employee, checkout], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                  // Run the second query
+                  db.pool.query(selectMember, [member], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                      }
+                  })
+                    db.pool.query(selectEmployee, [employee], function(error, rows, fields) {
+
+                        if (error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        } else {
+                            res.send(rows);
+
+                        }
+                    })
+              }
+  })});
 
 // BOOKS INSERT
 app.post('/add-book-form', function(req, res){
