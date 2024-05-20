@@ -5,16 +5,30 @@ Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%203%20-%20Integrating%20a%20Templating%20Engine%20(Handlebars)
 -->
 
+
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Wandering Words</title>
-</head>
-<body>
+  <nav class="navbar" id = "navbar">
+    <div class="right">
+        <a href="/">Checkouts</a>
+        <a href="/authors">Authors</a>
+        <a href="/books">Books</a>
+        <a href="/members">Members</a>
+        <a href="employees">Employees</a>
+        <a href="/booksAuthors">Books with Authors</a>
+        <a href="/booksCheckouts">Books in Checkouts</a>
+    </div>
+</nav>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/css/style.css' />
+  </head>
+  <body>
 
-    {{{body}}}
-    
+    <div class="container">
 
-</body>
+      {{{body}}}
+    </div>
+
+  </body>
 </html>
