@@ -18,6 +18,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 
 
+
 // Database
 var db = require('./database/db-connector')
 
@@ -279,13 +280,16 @@ app.put('/put-checkout-ajax', function(req,res,next){
     let member = parseInt(data.member);
     let employee = parseInt(data.employee);
     let checkout = parseInt(data.checkout);
+    let dateDue = (data.dateDue);
+    let dateCheckedOut = (data.dateCheckedOut);
   
-    let queryUpdateCheckout = `UPDATE Checkouts SET memberID = ?, employeeID = ? WHERE checkoutID = ?`;
+    let queryUpdateCheckout = `UPDATE Checkouts SET memberID = ?, employeeID = ?, dateCheckedOut = ?, dateDue = ? WHERE checkoutID = ?`;
     let selectMember = `SELECT * FROM Members WHERE memberID = ?`;
     let selectEmployee = 'SELECT * FROM Employees WHERE employeeID = ?';
+    let selectCheckout = `SELECT * FROM Checkouts WHERE checkoutID = ?`;
   
           // Run the 1st query
-          db.pool.query(queryUpdateCheckout, [member, employee, checkout], function(error, rows, fields){
+          db.pool.query(queryUpdateCheckout, [member, employee, dateCheckedOut, dateDue, checkout], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -312,10 +316,18 @@ app.put('/put-checkout-ajax', function(req,res,next){
                             console.log(error);
                             res.sendStatus(400);
                         } else {
-                            res.send(rows);
 
                         }
                     })
+                        db.pool.query(selectCheckout, [dateDue, dateCheckedOut], function(error, rows, fields) {
+    
+                            if (error) {
+                                console.log(error);
+                                res.sendStatus(400);
+                            } else {
+                            res.send(rows);
+                            }
+                        })
               }
   })});
 

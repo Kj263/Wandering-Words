@@ -12,11 +12,16 @@ updateCheckoutForm.addEventListener("submit", function (e) {
     let inputCheckout = document.getElementById("mySelect");
     let inputMember = document.getElementById("input-member-update");
     let inputEmployee = document.getElementById("input-employee-update");
+    let inputDateCheckedOut = document.getElementById("input-dateCheckedOut-update");
+    let inputDateDue = document.getElementById("input-dateDue-update");
+
 
     // Get the values from the form fields
     let checkoutValue = inputCheckout.value;
     let memberValue = inputMember.value;
     let employeeValue = inputEmployee.value;
+    let dateCheckedOutValue = inputDateCheckedOut.value;
+    let dateDueValue = inputDateDue.value;
     
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
@@ -32,6 +37,8 @@ updateCheckoutForm.addEventListener("submit", function (e) {
         checkout: checkoutValue,
         member: memberValue,
         employee: employeeValue,
+        dateCheckedOut: dateCheckedOutValue,
+        dateDue: dateDueValue
     }
     
     // Setup our AJAX request
