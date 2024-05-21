@@ -14,6 +14,7 @@ dateCheckedOut, dateDue
 FROM Checkouts
 INNER JOIN Members ON Checkouts.memberID = Members.memberID
 INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID
+ORDER BY Checkouts.checkoutID
 
 -- display all checkouts with their respective books and dateReturned
 SELECT Checkouts.checkoutID, bookTitle, dateReturned
@@ -46,6 +47,7 @@ SELECT Books.bookID, bookTitle, CONCAT(Authors.authorFirstName,' ',Authors.autho
 FROM Books
 INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
 INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
+ORDER BY Books.bookID
 
 -- add a new book 
 INSERT INTO Books (bookTitle, genre, numCopies) 
@@ -59,6 +61,7 @@ VALUES (:bookTitleInput, :genreInput, :numCopiesInput)
 -- display all authors
 SELECT authorID, authorFirstName, authorLastName 
 FROM Authors
+ORDER BY Authors.authorID
 
 -- add a new author
 INSERT INTO Authors (authorFirstName, authorLastName)
@@ -71,6 +74,7 @@ VALUES (:authorFirstNameInput, :authorLastNameInput)
 -- display all members for the Members Page
 SELECT memberID, memberFirstName, memberLastName, memberEmail 
 FROM Members
+ORDER BY Members.memberID
 
 -- add a new member for the Members Page
 INSERT INTO Members (memberFirstName, memberLastName, memberEmail) 
@@ -83,6 +87,7 @@ VALUES (:memberFirstNameInput, :memberLastNameInput, :memberEmailInput)
 -- display all employees
 SELECT employeeFirstName, employeeLastName, employeeEmail 
 FROM Employees
+ORDER BY Employees.employeeID
 
 -- add a new employee
 INSERT INTO Employees (employeeFirstName, employeeLastName, employeeEmail) 
@@ -105,6 +110,7 @@ SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID
 FROM Books
 INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID
 INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID
+ORDER BY BooksAuthors.booksAuthorsID
 
 -- give a book an author (M:M relationship)
 INSERT INTO BooksAuthors (bookID, authorID)
@@ -128,6 +134,7 @@ SELECT BooksCheckouts.booksCheckoutsID, Checkouts.checkoutID, Books.bookID, date
 FROM Checkouts
 INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID
 INNER JOIN Books on Books.bookID = BooksCheckouts.bookID
+ORDER BY BooksCheckouts.booksCheckoutsID
 
 -- add a book to a checkout (adding to a M:M relationship)
 INSERT INTO BooksCheckouts (bookID, checkoutID, dateReturned)

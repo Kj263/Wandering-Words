@@ -40,7 +40,7 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 app.get('/', function(req, res)
     {  
     // query to display all checkouts
-    let query1 = "SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID;";
+    let query1 = "SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID ORDER BY Checkouts.checkoutID;";
 
     // query for member dropdown
     let query2 = "SELECT memberID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member FROM Members;";
@@ -89,7 +89,7 @@ app.get('/', function(req, res)
 app.get('/books', function(req, res)
     {  
         // query to display all books
-        let query1 = "SELECT * FROM Books;";         
+        let query1 = "SELECT * FROM Books ORDER BY Books.bookID;";         
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
@@ -102,7 +102,7 @@ app.get('/books', function(req, res)
 app.get('/authors', function(req, res)
 {  
     // query to display all authors
-    let query1 = "SELECT * FROM Authors;";  
+    let query1 = "SELECT * FROM Authors ORDER BY Authors.authorID;";  
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
@@ -115,7 +115,7 @@ app.get('/authors', function(req, res)
 app.get('/members', function(req, res)
 {  
     // query to display all Members
-    let query1 = "SELECT * FROM Members;";   
+    let query1 = "SELECT * FROM Members ORDER BY Members.memberID;";   
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
@@ -128,7 +128,7 @@ app.get('/members', function(req, res)
 app.get('/employees', function(req, res)
 {  
     // query to display all employees
-    let query1 = "SELECT * FROM Employees;"; 
+    let query1 = "SELECT * FROM Employees ORDER BY Employees.employeeID;"; 
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
@@ -141,7 +141,7 @@ app.get('/employees', function(req, res)
 app.get('/booksAuthors', function(req, res)
 {  
     // query to display all booksAuthors
-    let query1 = "SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID FROM Books INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID";         
+    let query1 = "SELECT BooksAuthors.booksAuthorsID, Books.bookID, Authors.authorID FROM Books INNER JOIN BooksAuthors ON Books.bookID = BooksAuthors.bookID INNER JOIN Authors on Authors.authorID = BooksAuthors.authorID ORDER BY BooksAuthors.booksAuthorsID";         
     
     // query for book dropdown
     let query2 = "SELECT bookID, bookTitle FROM Books";
@@ -177,7 +177,7 @@ app.get('/booksAuthors', function(req, res)
 app.get('/booksCheckouts', function(req, res)
 {  
     // query to display all booksCheckouts
-    let query1 = "SELECT BooksCheckouts.booksCheckoutsID, Checkouts.checkoutID, Books.bookID, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID";               // Define our query
+    let query1 = "SELECT BooksCheckouts.booksCheckoutsID, Checkouts.checkoutID, Books.bookID, dateReturned FROM Checkouts INNER JOIN BooksCheckouts ON Checkouts.checkoutID = BooksCheckouts.checkoutID INNER JOIN Books on Books.bookID = BooksCheckouts.bookID ORDER BY BooksCheckouts.booksCheckoutsID";               // Define our query
     
     // query for books dropdown
     let query2 = "SELECT bookID, bookTitle FROM Books";
