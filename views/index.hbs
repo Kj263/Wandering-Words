@@ -38,8 +38,8 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
             <td>{{this.checkoutID}}</td>
             <td>{{this.member}}</td>
             <td>{{this.employee}}</td>
-            <td>{{this.dateCheckedOut}}</td>
-            <td>{{this.dateDue}}</td>
+            <td>{{moment this.dateCheckedOut format="MM-DD-YYYY"}}</td>
+            <td>{{moment this.dateDue format="MM-DD-YYYY"}}</td>
             <td><button onclick="deleteCheckout({{this.checkoutID}})">Delete</button></td>
         </tr>
         {{/each}}
@@ -74,7 +74,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         <tr>
             <td>{{this.checkoutID}}</td>
             <td>{{this.bookTitle}}</td>
-            <td>{{this.dateReturned}}</td>
+            <td>{{moment this.dateReturned format = "MM-DD-YYYY"}}</td>
         </tr>
         {{/each}}
     </tbody>
