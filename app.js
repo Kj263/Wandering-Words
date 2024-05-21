@@ -209,6 +209,28 @@ app.get('/booksCheckouts', function(req, res)
 });                                                         
 
 
+// BOOKS IN CHECKOUTS DELETE
+app.delete('/delete-book-in-checkout-ajax/', function(req,res,next){
+    let data = req.body;
+    let booksCheckoutsID = parseInt(data.id);
+    let deleteBooksCheckout = `DELETE FROM BooksCheckouts WHERE booksCheckoutsID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteBooksCheckout, [booksCheckoutsID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                res.sendStatus(204);
+              }
+  })});
+
 
 // CHECKOUTS INSERT
 app.post('/add-checkout-form', function(req, res){
@@ -242,6 +264,7 @@ app.post('/add-checkout-form', function(req, res){
         }
     })
 });
+
 
 // CHECKOUTS DELETE
 app.delete('/delete-checkout-ajax/', function(req,res,next){
