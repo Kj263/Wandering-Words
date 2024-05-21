@@ -232,6 +232,78 @@ app.delete('/delete-book-in-checkout-ajax/', function(req,res,next){
   })});
 
 
+// BOOKS IN CHECKOUTS UPDATE
+app.put('/put-book-in-checkout-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let booksCheckout = parseInt(data.booksCheckout);
+    let book = parseInt(data.book);
+  
+    let queryUpdateBookCheckout = `UPDATE BooksCheckouts SET bookID = ? WHERE booksCheckoutsID = ?`;
+    let selectBookCheckout = `SELECT * FROM BooksCheckouts WHERE booksCheckoutsID = ?`;
+  
+          // Run the 1st query
+          db.pool.query(queryUpdateBookCheckout, [book, booksCheckout], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                        db.pool.query(selectBookCheckout, [book], function(error, rows, fields) {
+    
+                            if (error) {
+                                console.log(error);
+                                res.sendStatus(400);
+                            } else {
+                            res.send(rows);
+                            }
+                        })
+              }
+  })});
+
+
+// RETURN IN CHECKOUTS UPDATE
+app.put('/put-return-in-checkout-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let booksCheckout = parseInt(data.booksCheckout);
+    let dateReturned = (data.dateReturned);
+  
+    let queryUpdateBookCheckout = `UPDATE BooksCheckouts SET dateReturned = ? WHERE booksCheckoutsID = ?`;
+    let selectBookCheckout = `SELECT * FROM BooksCheckouts WHERE booksCheckoutsID = ?`;
+  
+          // Run the 1st query
+          db.pool.query(queryUpdateBookCheckout, [dateReturned, booksCheckout], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                        db.pool.query(selectBookCheckout, [dateReturned], function(error, rows, fields) {
+    
+                            if (error) {
+                                console.log(error);
+                                res.sendStatus(400);
+                            } else {
+                            res.send(rows);
+                            }
+                        })
+              }
+  })});
+
+
 // CHECKOUTS INSERT
 app.post('/add-checkout-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
@@ -532,3 +604,4 @@ app.post('/add-bookCheckout-form', function(req, res){
 app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 })
+
