@@ -507,5 +507,5 @@ app.post('/add-bookCheckout-form', function(req, res){
     LISTENER
 */
 app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
-    console.log('Express started on http://classwork.engr.oregonstate.edu:' + PORT + '; press Ctrl-C to terminate.')
+    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 })
