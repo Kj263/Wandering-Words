@@ -103,6 +103,7 @@ Gather dateCheckedOut and dateDue as date input-->
         {{#each employees}}
         <option value="{{this.employeeID}}">{{this.employee}}</option>
         {{/each}}
+        <option value="null">No employee (self-checkout)</option>
     </select>
 
     <label for="input-dateCheckedOut">Date checked out: </label>
