@@ -44,8 +44,6 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 </table>
 <script src="./js/delete_book_in_checkout.js"></script>
 
-
-
 <!-- INSERT a new bookCheckout using an HTML form with POST 
 Gather book and checkout with input from dropdown fields 
 Gather dateReturned as date input-->
@@ -70,6 +68,55 @@ Gather dateReturned as date input-->
 
     <label for="input-dateReturned">Date returned: </label>
     <input type="date" name="input-dateReturned" id="input-dateReturned">
-
+    <p></p>
     <input type="submit">
 </form>
+
+<!-- UPDATE a Book in Checkout -->
+<h2>Updating A Book in a Checkout</h2>
+<p>To update a book in a Checkout, please select the Book Checkout ID and fill in the corresponding forms, then click 'Submit'!</p>
+<form id="update-book-in-checkout-form-ajax">
+
+    <label for="input-booksCheckoutID">Book Checkout ID: </label>
+    <select name="input-booksCheckoutID" id="mySelect">
+        <option value="test">Select a Checkout</option>
+        {{#each data}}
+        <option value="{{this.booksCheckoutsID}}">{{this.booksCheckoutsID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-book">Book: </label>
+    <select name="input-book" id="input-book-update">
+        <option value="">Select a Book</option>
+        {{#each books}}
+        <option value="{{this.bookID}}">{{this.bookTitle}}</option>
+        {{/each}}
+    </select>
+    <p></p>
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_book_in_checkout.js"></script>
+
+<!-- UPDATE a Return Date for a Book in Checkout -->
+<h2>Updating A Return Date in a Checkout</h2>
+<p>To update the return date, please select the Book Checkout ID and fill in the corresponding forms, then click 'Submit'!</p>
+<form id="update-return-in-checkout-form-ajax">
+
+    <label for="input-booksCheckoutID">Book Checkout ID: </label>
+    <select name="input-booksCheckoutID" id="bookCheckoutID">
+        <option value="test">Select a Checkout</option>
+        {{#each data}}
+        <option value="{{this.booksCheckoutsID}}">{{this.booksCheckoutsID}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-dateReturned">Date Returned: </label>
+    <input type="date" name="input-dateReturned" id="input-dateReturned-update">
+    <p></p>
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_return_in_checkout.js"></script>
