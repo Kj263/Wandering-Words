@@ -34,8 +34,8 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{#each data}}
         <tr>
             <td>{{this.booksCheckoutsID}}</td>
-            <td>{{this.bookID}}</td>
             <td>{{this.checkoutID}}</td>
+            <td>{{this.bookID}}</td>
             <td>{{moment this.dateReturned format = "MM-DD-YYYY"}}</td>
             <td><button onclick="deleteBookinCheckout({{this.booksCheckoutsID}})">Delete</button></td>
         </tr>
