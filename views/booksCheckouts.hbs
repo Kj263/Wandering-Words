@@ -5,10 +5,12 @@ Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 -->
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <!-- display booksCheckouts using a table-->
 {{!-- Create a table --}}
 <h2>Books in Checkouts</h2>
-<table>
+<table id = "books-checkouts-table">
 
     {{!-- Header section --}}
     <thead>
@@ -21,6 +23,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
                 {{@key}}
             </th>
             {{/each}}
+            <th>Delete</th>
         </tr>
     </thead>
 
@@ -33,11 +36,13 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
             <td>{{this.booksCheckoutsID}}</td>
             <td>{{this.bookID}}</td>
             <td>{{this.checkoutID}}</td>
-            <td>{{this.dateReturned}}</td>
+            <td>{{moment this.dateReturned format = "MM-DD-YYYY"}}</td>
+            <td><button onclick="deleteBookinCheckout({{this.booksCheckoutsID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_book_in_checkout.js"></script>
 
 
 
