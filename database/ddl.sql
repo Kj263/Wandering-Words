@@ -160,15 +160,16 @@ CREATE OR REPLACE TABLE `Checkouts` (
   `dateCheckedOut` date NOT NULL,
   `dateDue` date NOT NULL,
   PRIMARY KEY (`checkoutID`),
+  CONSTRAINT `fk_Checkouts_Employees1` FOREIGN KEY (`employeeID`) REFERENCES `Employees` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE (`checkoutID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
-ALTER TABLE `Checkouts`
-  ADD CONSTRAINT `fk_Checkouts_Employees1`
-    FOREIGN KEY (`employeeID`)
-    REFERENCES `Employees` (`employeeID`);
-    -- ON DELETE CASCADE
-    -- ON UPDATE CASCADE;
+-- ALTER TABLE `Checkouts`
+--   ADD CONSTRAINT `fk_Checkouts_Employees1`
+--     FOREIGN KEY (`employeeID`)
+--     REFERENCES `Employees` (`employeeID`);
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE;
 
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Members`
