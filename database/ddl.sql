@@ -156,7 +156,7 @@ INSERT INTO `BooksAuthors` (`bookID`, `authorID`) VALUES
 CREATE OR REPLACE TABLE `Checkouts` (
   `checkoutID` INT NOT NULL AUTO_INCREMENT,
   `memberID` INT NOT NULL,
-  `employeeID` INT,
+  `employeeID` INT DEFAULT NULL,
   `dateCheckedOut` date NOT NULL,
   `dateDue` date NOT NULL,
   PRIMARY KEY (`checkoutID`),
