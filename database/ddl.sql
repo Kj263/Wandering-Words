@@ -173,9 +173,9 @@ ALTER TABLE `Checkouts`
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Members`
     FOREIGN KEY (`memberID`)
-    REFERENCES `Members` (`memberID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE;
+    REFERENCES `Members` (`memberID`);
+    -- ON DELETE CASCADE
+    -- ON UPDATE CASCADE;
 
     -- -----------------------------------------------------
 -- Insert `Checkouts`

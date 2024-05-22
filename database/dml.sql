@@ -13,7 +13,7 @@ SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS
 dateCheckedOut, dateDue
 FROM Checkouts
 INNER JOIN Members ON Checkouts.memberID = Members.memberID
-INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID
+LEFT JOIN Employees ON Checkouts.employeeID = Employees.employeeID
 ORDER BY Checkouts.checkoutID
 
 -- display all checkouts with their respective books and dateReturned

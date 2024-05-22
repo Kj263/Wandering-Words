@@ -40,8 +40,8 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 app.get('/', function(req, res)
     {  
     // query to display all checkouts
-    let query1 = "SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID INNER JOIN Employees ON Checkouts.employeeID = Employees.employeeID ORDER BY Checkouts.checkoutID;";
-
+    let query1 = "SELECT checkoutID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member, CONCAT(Employees.employeeFirstName,' ',Employees.employeeLastName) AS employee, dateCheckedOut, dateDue FROM Checkouts INNER JOIN Members ON Checkouts.memberID = Members.memberID LEFT JOIN Employees ON Checkouts.employeeID = Employees.employeeID ORDER BY Checkouts.checkoutID;";
+ 
     // query for member dropdown
     let query2 = "SELECT memberID, CONCAT(Members.memberFirstName,' ',Members.memberLastName) AS member FROM Members;";
 
