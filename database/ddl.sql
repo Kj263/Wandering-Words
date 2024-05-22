@@ -160,7 +160,7 @@ CREATE OR REPLACE TABLE `Checkouts` (
   `dateCheckedOut` date NOT NULL,
   `dateDue` date NOT NULL,
   PRIMARY KEY (`checkoutID`),
-  UNIQUE (`checkoutID`)
+  UNIQUE (`checkoutID`),
   KEY `employeeID` (`employeeID`),
   CONSTRAINT `fk_Checkouts_Employees1` FOREIGN KEY (`employeeID`) REFERENCES `Employees` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
