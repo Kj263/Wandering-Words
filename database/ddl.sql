@@ -166,8 +166,8 @@ CREATE OR REPLACE TABLE `Checkouts` (
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Employees1`
     FOREIGN KEY (`employeeID`)
-    REFERENCES `Employees` (`employeeID`);
-    ON DELETE CASCADE,
+    REFERENCES `Employees` (`employeeID`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 ALTER TABLE `Checkouts`
