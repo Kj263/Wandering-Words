@@ -60,7 +60,7 @@ INSERT INTO `Books` (`bookTitle`, `genre`, `numCopies`) VALUES
 /* Records employee information including name, email and ID */ 
 
 CREATE OR REPLACE TABLE `Employees` (
-  `employeeID` INT NOT NULL AUTO_INCREMENT,
+  `employeeID` INT AUTO_INCREMENT,
   `employeeFirstName` varchar(255) NOT NULL,
   `employeeLastName` varchar(255) NOT NULL,
   `employeeEmail` varchar(255) NOT NULL,
@@ -166,9 +166,9 @@ CREATE OR REPLACE TABLE `Checkouts` (
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Employees1`
     FOREIGN KEY (`employeeID`)
-    REFERENCES `Employees` (`employeeID`);
-    -- ON DELETE CASCADE
-    -- ON UPDATE CASCADE;
+    REFERENCES `Employees` (`employeeID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Members`
