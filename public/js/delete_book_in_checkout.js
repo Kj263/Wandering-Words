@@ -1,3 +1,6 @@
+// Deletes item from intersection table booksCheckouts
+// This item has a relationship to Checkouts and Books tables
+
 function deleteBookinCheckout(booksCheckoutsID) {
     let link = '/delete-book-in-checkout-ajax/';
     let data = {

@@ -16,8 +16,8 @@ updateBookForm.addEventListener("submit", function (e) {
     let booksCheckoutsValue = inputBooksCheckout.value;
     let bookValue = inputBook.value;
 
-    // currently the database table for bsg_people does not allow updating values to NULL
-    // so we must abort if being bassed NULL for homeworld
+    // currently the database table does not allow updating values to NULL
+    // so we must abort if being bassed NULL for the below values
 
     if (isNaN(bookValue) || isNaN(booksCheckoutsValue)) 
     {

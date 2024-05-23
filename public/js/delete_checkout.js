@@ -1,3 +1,5 @@
+// deletes Checkout from Checkouts table
+
 function deleteCheckout(checkoutID) {
   let link = '/delete-checkout-ajax/';
   let data = {

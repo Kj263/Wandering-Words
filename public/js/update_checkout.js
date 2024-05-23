@@ -23,8 +23,8 @@ updateCheckoutForm.addEventListener("submit", function (e) {
     let dateCheckedOutValue = inputDateCheckedOut.value;
     let dateDueValue = inputDateDue.value;
     
-    // currently the database table for bsg_people does not allow updating values to NULL
-    // so we must abort if being bassed NULL for homeworld
+    // currently the database table does not allow updating values to NULL
+    // so we must abort if being bassed NULL for the below values
 
     if (isNaN(memberValue) || isNaN(checkoutValue) || isNaN(employeeValue)) 
     {
