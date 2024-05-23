@@ -20,12 +20,12 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th>Checkout ID</th>
-            <th>Member ID</th>
-            <th>Employee ID</th>
-            <th>Date Checked Out</th>
-            <th>Date Due</th>
-            <th>Delete</th>
+            <th align="left">Checkout ID</th>
+            <th align="left">Member ID</th>
+            <th align="left">Employee ID</th>
+            <th align="left">Date Checked Out</th>
+            <th align="left">Date Due</th>
+            <th align="right">Delete</th>
         </tr>
     </thead>
 
@@ -58,11 +58,9 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each checkedOutBooks.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th align="left">Checkout ID</th>
+            <th align="left">Book Title</th>
+            <th align="left">Date Returned</th>
         </tr>
     </thead>
 
