@@ -26,13 +26,13 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 
 Citation for booksAuthors.hbs:
 Date: 05/17/2024
-Copied steps 4 and 5 from nodejs-starter-app
+Copied steps 4, 5, and 6 from nodejs-starter-app
 Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 
 Citation for booksCheckouts.hbs:
 Date: 05/17/2024
-Copied steps 4 and 5 from nodejs-starter-app
+Copied steps 4-8 from nodejs-starter-app
 Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 
@@ -44,7 +44,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 
 Citation for index.hbs:
 Date: 05/17/2024
-Copied steps 4 and 5 from nodejs-starter-app
+Copied steps 4-8 from nodejs-starter-app
 Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 
@@ -60,3 +60,32 @@ Copied steps 0-8 from nodejs-starter-app
 Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
+Citation for delete_book_in_checkout.js:
+Date: 05/23/2024
+Copied step 7 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+Citation for delete_checkout.js:
+Date: 05/23/2024
+Copied step 7 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+Citation for update_book_in_checkout.js:
+Date: 05/23/2024
+Copied step 8 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+Citation for update_checkout.js:
+Date: 05/23/2024
+Copied step 8 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+Citation for update_return_in_checkout.js:
+Date: 05/23/2024
+Copied step 8 from nodejs-starter-app
+Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
