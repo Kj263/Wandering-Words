@@ -19,7 +19,7 @@ updateBookForm.addEventListener("submit", function (e) {
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
 
-    if (isNaN(bookValue)) 
+    if (isNaN(bookValue) || isNaN(booksCheckoutsValue)) 
     {
         return;
     }
