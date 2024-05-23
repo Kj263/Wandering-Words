@@ -60,7 +60,7 @@ INSERT INTO `Books` (`bookTitle`, `genre`, `numCopies`) VALUES
 /* Records employee information including name, email and ID */ 
 
 CREATE OR REPLACE TABLE `Employees` (
-  `employeeID` INT AUTO_INCREMENT,
+  `employeeID` INT NOT NULL AUTO_INCREMENT,
   `employeeFirstName` varchar(255) NOT NULL,
   `employeeLastName` varchar(255) NOT NULL,
   `employeeEmail` varchar(255) NOT NULL,
@@ -167,8 +167,7 @@ ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Employees1`
     FOREIGN KEY (`employeeID`)
     REFERENCES `Employees` (`employeeID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE;
+    ON DELETE SET NULL;
 
 ALTER TABLE `Checkouts`
   ADD CONSTRAINT `fk_Checkouts_Members`
@@ -186,7 +185,8 @@ INSERT INTO `Checkouts` (`memberID`, `employeeID`, `dateCheckedOut`, `dateDue`) 
 (3, 5, '2023-03-05', '2023-03-25'),
 (2, 4, '2023-11-02', '2023-11-23'),
 (1, 4, '2022-05-05', '2022-05-25'),
-(4, 2, '2023-12-06', '2023-12-26');
+(4, 2, '2023-12-06', '2023-12-26'),
+(4, NULL, '2023-12-02', '2023-12-22');
 
 -- -----------------------------------------------------
 -- Table `BooksCheckouts`

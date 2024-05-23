@@ -1,3 +1,9 @@
+// Citation for update_checkout.js:
+// Date: 05/23/2024
+// Copied step 8 from nodejs-starter-app
+// Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 
 // Get the objects we need to modify
 let updateCheckoutForm = document.getElementById('update-checkout-form-ajax');

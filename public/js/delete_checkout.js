@@ -1,3 +1,9 @@
+// Citation for delete_checkout.js:
+// Date: 05/23/2024
+// Copied step 7 from nodejs-starter-app
+// Authors (github username): gkochera, Cortona1, currym-osu, dmgs11
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // deletes Checkout from Checkouts table
 
 function deleteCheckout(checkoutID) {
