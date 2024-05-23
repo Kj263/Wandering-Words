@@ -16,8 +16,13 @@ updateReturnForm.addEventListener("submit", function (e) {
     let booksCheckoutsValue = inputBooksCheckout.value;
     let dateReturnedValue = inputDateReturned.value;
 
-    // currently the database table for bsg_people does not allow updating values to NULL
-    // so we must abort if being bassed NULL for homeworld
+    // currently the database table for books does not allow updating values to NULL
+    // so we must abort if being bassed NULL for books checkouts
+       if (isNaN(booksCheckoutsValue)) 
+    {
+        console.error("Invalid input: member or checkout ID is missing entry");
+        return;
+    }
 
 
     // Put our data we want to send in a javascript object
