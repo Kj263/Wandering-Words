@@ -376,6 +376,10 @@ app.put('/put-checkout-ajax', function(req,res,next){
   
     let member = parseInt(data.member);
     let employee = parseInt(data.employee);
+    if (isNaN(employee))
+    {
+        employee = null
+    }
     let checkout = parseInt(data.checkout);
     let dateDue = (data.dateDue);
     let dateCheckedOut = (data.dateCheckedOut);
