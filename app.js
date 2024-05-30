@@ -312,13 +312,13 @@ app.post('/add-checkout-form', function(req, res){
     // Capture NULL employee value
     let employee = parseInt(data['input-employee']);
     if (isNaN(employee))
-    {
-        employee = 'NULL'
-    }
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) VALUES ('${data['input-member']}', '${employee}', '${data['input-dateCheckedOut']}', '${data['input-dateDue']}')`;
-    db.pool.query(query1, function(error, rows, fields){
+        {
+            employee = null
+        }
+    
+        // Create the query and run it on the database
+        query1 = `INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) VALUES ('${data['input-member']}', ${employee}, '${data['input-dateCheckedOut']}', '${data['input-dateDue']}')`;
+        db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
         if (error) {
