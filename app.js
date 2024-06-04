@@ -576,7 +576,7 @@ app.post('/add-bookCheckout-form', function(req, res){
     let dateReturned = Date.parse(data['input-dateReturned']);
     if (isNaN(dateReturned))
     {
-        dateReturned = 'NULL'
+        dateReturned = null
     }
 
     // Create the query and run it on the database
