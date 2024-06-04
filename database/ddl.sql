@@ -160,7 +160,7 @@ CREATE OR REPLACE TABLE `Checkouts` (
   `dateCheckedOut` date NOT NULL,
   `dateDue` date NOT NULL,
   PRIMARY KEY (`checkoutID`),
-  CONSTRAINT chk_dates CHECK (dateDue > dateCheckedOut),
+  CONSTRAINT Checkouts_chk_dates CHECK (dateDue > dateCheckedOut),
   UNIQUE (`checkoutID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
