@@ -9,6 +9,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 
 {{!-- the checkouts entity acts as our index page --}}
 
+
 <!-- display Checkouts using a table-->
 <h2>Checkouts</h2>
 {{!-- Create a table --}}
@@ -25,7 +26,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
             <th align="left">Employee ID</th>
             <th align="left">Date Checked Out</th>
             <th align="left">Date Due</th>
-            <th align="right">Delete</th>
+            <th align="left">Delete</th>
         </tr>
     </thead>
 
@@ -37,7 +38,11 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         <tr>
             <td>{{this.checkoutID}}</td>
             <td>{{this.member}}</td>
+            {{#if employee}}
             <td>{{this.employee}}</td>
+            {{else}}
+            <td>Self Checkout (NULL)</td>
+            {{/if}}
             <td>{{moment this.dateCheckedOut format="MM-DD-YYYY"}}</td>
             <td>{{moment this.dateDue format="MM-DD-YYYY"}}</td>
             <td><button onclick="deleteCheckout({{this.checkoutID}})">Delete</button></td>
@@ -48,7 +53,17 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 <script src="./js/delete_checkout.js"></script>
 
 
+{{!-- local navbar for hidden forms --}}
+<nav class="navbar-forms">
+        <a href="#" onclick="showDiv('add-checkout')">Add Checkout</a>
+        <a href="#" onclick="showDiv('update-checkout')">Update Checkout</a>
+        <a href="#" onclick="showDiv('checked-out-books')">Show All Checked Out Books</a>
+</nav>
+
+
+
 {{!--display all checked out books using a table --}}
+<div id="checked-out-books" hidden>
 <h2>Checked Out Books</h2>
 <table>
 
@@ -77,14 +92,15 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{/each}}
     </tbody>
 </table>
-
+</div>
 
 
 
 <!-- INSERT a new Checkout using an HTML form with POST 
 Gather member and employee with input from dropdown fields 
 Gather dateCheckedOut and dateDue as date input-->
-<h2>Add a new Checkout</h2>
+<div id="add-checkout" hidden>
+<h2>Add a New Checkout</h2>
 <p>To add a new checkout, please enter its information below and click `Submit`!</p>
 <form id="add-checkout-form" method="POST" action="/add-checkout-form">
     <label for="input-member">Member: </label>
@@ -113,9 +129,12 @@ Gather dateCheckedOut and dateDue as date input-->
     <p></p>
     <input type="submit">
 </form>
+</div>
+
 
 <!-- UPDATE a Checkout -->
-<h2>Updating A Checkout</h2>
+<div id="update-checkout" hidden>
+<h2>Update a Checkout</h2>
 <p>To update a checkout, please fill in the below fields and click 'Submit'!</p>
 <form id="update-checkout-form-ajax">
 
@@ -154,5 +173,6 @@ Gather dateCheckedOut and dateDue as date input-->
     <input type="submit">
 
 </form>
+</div>
 
 <script src="./js/update_checkout.js"></script>
