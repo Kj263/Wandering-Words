@@ -18,11 +18,11 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th>Book Checkout ID</th>
-            <th>Checkout ID</th>
-            <th>Book ID</th>
-            <th>Date Returned</th>
-            <th>Delete</th>
+            <th align="left">Book Checkout ID</th>
+            <th align="left">Checkout ID</th>
+            <th align="left">Book ID</th>
+            <th align="left">Date Returned</th>
+            <th align="left">Delete</th>
         </tr>
     </thead>
 
@@ -43,9 +43,18 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
 </table>
 <script src="./js/delete_book_in_checkout.js"></script>
 
+
+<nav class="navbar-forms">
+        <a href="#" onclick="showDiv('add-book-checkout')">Add Book to Checkout</a>
+        <a href="#" onclick="showDiv('update-book-checkout')">Update Book in Checkout</a>
+        <a href="#" onclick="showDiv('update-return-date')">Update Book Return Date</a>
+</nav>
+
+
 <!-- INSERT a new bookCheckout using an HTML form with POST 
 Gather book and checkout with input from dropdown fields 
 Gather dateReturned as date input-->
+<div id="add-book-checkout" hidden>
 <h2>Add a Book to a Checkout</h2>
 <p>To add a book to a checkout, please enter its information below and click `Submit`!</p>
 <form id="add-bookCheckout-form" method="POST" action="/add-bookCheckout-form">
@@ -67,11 +76,15 @@ Gather dateReturned as date input-->
 
     <label for="input-dateReturned">Date returned: </label>
     <input type="date" name="input-dateReturned" id="input-dateReturned">
-    <p></p>
+    
+    <p>
     <input type="submit">
+    </p>
 </form>
+</div>
 
 <!-- UPDATE a Book in Checkout -->
+<div id="update-book-checkout" hidden>
 <h2>Updating A Book in a Checkout</h2>
 <p>To update a book in a Checkout, please select the Book Checkout ID and fill in the corresponding forms, then click 'Submit'!</p>
 <form id="update-book-in-checkout-form-ajax">
@@ -95,10 +108,12 @@ Gather dateReturned as date input-->
     <input type="submit">
 
 </form>
+</div>
 
 <script src="./js/update_book_in_checkout.js"></script>
 
 <!-- UPDATE a Return Date for a Book in Checkout -->
+<div id="update-return-date" hidden>
 <h2>Updating A Return Date in a Checkout</h2>
 <p>To update the return date, please select the Book Checkout ID and fill in the corresponding forms, then click 'Submit'!</p>
 <form id="update-return-in-checkout-form-ajax">
@@ -117,5 +132,6 @@ Gather dateReturned as date input-->
     <input type="submit">
 
 </form>
-
+</div>
 <script src="./js/update_return_in_checkout.js"></script>
+
