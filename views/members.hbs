@@ -16,10 +16,10 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th>Member ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
+            <th align="left">Member ID</th>
+            <th align="left">First Name</th>
+            <th align="left">Last Name</th>
+            <th align="left">Email</th>
         </tr>
     </thead>
 
@@ -38,9 +38,14 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
     </tbody>
 </table>
 
+{{!-- local navbar for hidden forms --}}
+<nav class="navbar-forms">
+        <a href="#" onclick="showDiv('add-member')">Add Member</a>
+</nav>
 
 <!-- INSERT a new Member using an HTML form with POST 
 Gather memberFirstName, memberLastName, and memberEmail as input-->
+<div id="add-member" hidden>
 <h2>Add a new Member</h2>
 <p>To add a new member, please enter its information below and click `Submit`!</p>
 <form id="add-member-form" method="POST" action="/add-member-form">
@@ -53,5 +58,8 @@ Gather memberFirstName, memberLastName, and memberEmail as input-->
     <label for="input-memberEmail">Email: </label>
     <input type="text" name="input-memberEmail" id="input-memberEmail">
 
+    <p>
     <input type="submit">
+    </p>
 </form>
+</div>
