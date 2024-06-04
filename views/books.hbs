@@ -16,10 +16,10 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th>Book ID</th>
-            <th>Book Title</th>
-            <th>Genre</th>
-            <th>Number of Copies</th>
+            <th align="left">Book ID</th>
+            <th align="left">Book Title</th>
+            <th align="left">Genre</th>
+            <th align="left">Number of Copies</th>
         </tr>
     </thead>
 
@@ -38,9 +38,14 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
     </tbody>
 </table>
 
+{{!-- local navbar for hidden forms --}}
+<nav class="navbar-forms">
+        <a href="#" onclick="showDiv('add-book')">Add Book</a>
+</nav>
 
 <!-- INSERT a new Book using an HTML form with POST 
 Gather title, genre, and numCopies as input-->
+<div id="add-book" hidden>
 <h2>Add a new Book</h2>
 <p>To add a new book, please enter its information below and click `Submit`!</p>
 <form id="add-book-form" method="POST" action="/add-book-form">
@@ -53,5 +58,8 @@ Gather title, genre, and numCopies as input-->
     <label for="input-numCopies">Number of copies: </label>
     <input type="number" name="input-numCopies" id="input-numCopies">
 
+    <p>
     <input type="submit">
+    </p>
 </form>
+</div>
