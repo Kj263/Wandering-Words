@@ -316,6 +316,11 @@ app.post('/add-checkout-form', function(req, res){
             employee = null
         }
     
+    if (data['input-dateCheckedOut'] > data['input-dateCheckedOut']){
+        alert("Invalid dates")
+        res.redirect('/');
+    }
+    
         // Create the query and run it on the database
         query1 = `INSERT INTO Checkouts (memberID, employeeID, dateCheckedOut, dateDue) VALUES ('${data['input-member']}', ${employee}, '${data['input-dateCheckedOut']}', '${data['input-dateDue']}')`;
         db.pool.query(query1, function(error, rows, fields){
