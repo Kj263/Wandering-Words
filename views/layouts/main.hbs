@@ -8,6 +8,17 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
 <!DOCTYPE html>
 <html>
+
+{{!-- toggle function for local nav bar elements--}}
+<script language="JavaScript">
+function showDiv(divId) {
+    var div = document.getElementById(divId);
+    if (div) {
+        div.style.display = div.style.display === 'block' ? 'none' : 'block' ;
+    }
+}
+</script>
+
   <nav class="navbar" id = "navbar">
     <div class="right">
         <a href="/">Checkouts</a>
