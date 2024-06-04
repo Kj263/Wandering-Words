@@ -16,9 +16,9 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th>Author Book ID</th>
-            <th>Book ID</th>
-            <th>Author ID</th>
+            <th align="left">Author Book ID</th>
+            <th align="left">Book ID</th>
+            <th align="left">Author ID</th>
         </tr>
     </thead>
 
@@ -36,10 +36,15 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
     </tbody>
 </table>
 
+<nav class="navbar-forms">
+        <a href="#" onclick="showDiv('add-book-author')">Pair Book to Existing Author</a>
+</nav>
+
 
 <!-- INSERT a new bookAuthor using an HTML form with POST 
 Gather book and author with input from dropdown fields -->
-<h2>Add a new Book Author connection</h2>
+<div id="add-book-author" hidden>
+<h2>Add a New Book Author Connection</h2>
 <p>To add a book author connection, please enter its information below and click `Submit`!</p>
 <form id="add-bookAuthor-form" method="POST" action="/add-bookAuthor-form">
     <label for="input-book">Book: </label>
@@ -60,3 +65,4 @@ Gather book and author with input from dropdown fields -->
 
     <input type="submit">
 </form>
+</div>
