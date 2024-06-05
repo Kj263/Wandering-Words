@@ -87,7 +87,11 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
         <tr>
             <td>{{this.checkoutID}}</td>
             <td>{{this.bookTitle}}</td>
+            {{#if this.dateReturned}}
             <td>{{moment this.dateReturned format = "MM-DD-YYYY"}}</td>
+            {{else}}
+            <td>Checked Out</td>
+            {{/if}}
         </tr>
         {{/each}}
     </tbody>
