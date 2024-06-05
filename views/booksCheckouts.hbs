@@ -35,7 +35,11 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
             <td>{{this.booksCheckoutsID}}</td>
             <td>{{this.checkoutID}}</td>
             <td>{{this.bookID}}</td>
+            {{#if this.dateReturned}}
             <td>{{moment this.dateReturned format = "MM-DD-YYYY"}}</td>
+            {{else}}
+            <td>Checked Out</td>
+            {{/if}}
             <td><button onclick="deleteBookinCheckout({{this.booksCheckoutsID}})">Delete</button></td>
         </tr>
         {{/each}}
@@ -74,7 +78,7 @@ Gather dateReturned as date input-->
         {{/each}}
     </select>
 
-    <label for="input-dateReturned">Date returned: </label>
+    <label for="input-dateReturned">Date Returned: </label>
     <input type="date" name="input-dateReturned" id="input-dateReturned">
     
     <p>
@@ -134,4 +138,3 @@ Gather dateReturned as date input-->
 </form>
 </div>
 <script src="./js/update_return_in_checkout.js"></script>
-
